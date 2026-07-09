@@ -549,6 +549,7 @@ const spatialSunStart=.7;
 let spatialSunEnteredAt=0;
 let galleryStackIndex=0;
 let galleryLastStep=0;
+let feedWheelLastStep=0;
 let locationMap=null;
 let locationMapReady=false;
 let activeMapPropertyId=null;
@@ -785,7 +786,7 @@ function showScreen(name){
 function renderFeed(){
   cards.innerHTML=properties.map((p,i)=>`
     <article class="card">
-      <video data-feed-index="${i}" src="${p.video}" poster="${p.heroImage || ''}" ${i===0?'autoplay preload="auto"':'preload="metadata"'} loop playsinline></video>
+      <video data-feed-index="${i}" data-src="${p.video}" poster="${p.heroImage || ''}" ${i===0?'autoplay preload="auto"':'preload="none"'} loop playsinline></video>
       <div class="card-shade"></div>
       <div class="overlay">
         <div class="price">${p.price}</div>
@@ -796,7 +797,27 @@ function renderFeed(){
   `).join('');
   progress.innerHTML=properties.map((_,i)=>`<span class="${i===currentCard?'active':''}"></span>`).join('');
   cards.style.transform=`translateY(-${currentCard*100}%)`;
+  updateFeedVideoSources();
   syncLikeUI();
+}
+
+function updateFeedVideoSources(){
+  [...cards.querySelectorAll('video')].forEach((video,index)=>{
+    const distance=Math.abs(index-currentCard);
+    const src=video.dataset.src;
+    if(distance<=1){
+      if(src&&video.getAttribute('src')!==src){
+        video.setAttribute('src',src);
+        video.preload=index===currentCard?'auto':'metadata';
+        video.load();
+      }
+    }else if(video.getAttribute('src')){
+      video.pause();
+      video.removeAttribute('src');
+      video.preload='none';
+      video.load();
+    }
+  });
 }
 
 async function renderDetail(){
@@ -1091,6 +1112,7 @@ function handleModelDelta(delta,input='wheel'){
 }
 
 function playVisible(){
+  updateFeedVideoSources();
   [...cards.querySelectorAll('video')].forEach((video,i)=>{
     if(i===currentCard){
       video.muted=false;
@@ -1182,7 +1204,14 @@ function snapDetailTouchMove(event){
 cards.addEventListener('touchstart',event=>{startY=event.touches[0].clientY;deltaY=0;},{passive:true});
 cards.addEventListener('touchmove',event=>{deltaY=event.touches[0].clientY-startY;},{passive:true});
 cards.addEventListener('touchend',()=>{if(Math.abs(deltaY)>50)swipeTo(currentCard+(deltaY<0?1:-1));});
-cards.addEventListener('wheel',event=>{event.preventDefault();if(Math.abs(event.deltaY)>16)swipeTo(currentCard+(event.deltaY>0?1:-1));},{passive:false});
+cards.addEventListener('wheel',event=>{
+  event.preventDefault();
+  const now=Date.now();
+  if(Math.abs(event.deltaY)>16&&now-feedWheelLastStep>520){
+    feedWheelLastStep=now;
+    swipeTo(currentCard+(event.deltaY>0?1:-1));
+  }
+},{passive:false});
 cards.addEventListener('click',event=>{
   if(currentScreen!=='feed'||Math.abs(deltaY)>12)return;
   if(event.target.closest('a,button'))return;
