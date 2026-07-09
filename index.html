@@ -702,9 +702,7 @@ function startupAssetList(){
   const first=properties[0]||{};
   const images=new Set(['assets/agent-placeholder.jpg']);
   if(first.heroImage)images.add(first.heroImage);
-  const videos=new Set();
-  if(first.video)videos.add(first.video);
-  return {images:[...images],videos:[...videos]};
+  return {images:[...images],videos:[]};
 }
 
 function loadImage(src){
@@ -723,40 +721,33 @@ async function warmVideo(src){
 }
 
 async function preloadStartupAssets(){
-  const {images,videos}=startupAssetList();
+  const {images}=startupAssetList();
   const tasks=[
-    ...images.map(src=>({type:'image',src,run:()=>loadImage(src)})),
-    ...videos.map(src=>({type:'video',src,run:()=>warmVideo(src)}))
+    ...images.map(src=>({type:'image',src,run:()=>loadImage(src)}))
   ];
   let done=0;
   setLoadProgress(done,tasks.length,'Preparing the first peek.');
   const workers=Array.from({length:Math.min(4,tasks.length)},async()=>{
     while(tasks.length){
       const task=tasks.shift();
-      const label=task.type==='video'?'Loading first video.':'Loading first images.';
+      const label='Loading first images.';
       try{await task.run();}
       catch(error){}
       done+=1;
-      setLoadProgress(done,images.length+videos.length,label);
+      setLoadProgress(done,images.length,label);
     }
   });
   await Promise.all(workers);
-  setLoadProgress(images.length+videos.length,images.length+videos.length,'Ready.');
+  setLoadProgress(images.length,images.length,'Ready.');
 }
 
 function preloadRemainingAssets(){
   const initial=startupAssetList();
   const initialImages=new Set(initial.images);
-  const initialVideos=new Set(initial.videos);
-  const {images,videos}=uniqueAssetList();
+  const {images}=uniqueAssetList();
   const remainingImages=images.filter(src=>!initialImages.has(src));
-  const remainingVideos=videos.filter(src=>!initialVideos.has(src));
   const run=async()=>{
     for(const src of remainingImages)loadImage(src);
-    for(const src of remainingVideos){
-      await warmVideo(src);
-      applyPreloadedVideoSources();
-    }
   };
   if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:2500});
   else setTimeout(run,800);
