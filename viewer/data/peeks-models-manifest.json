@@ -1,0 +1,32 @@
+{
+  "delu-iela": {
+    "pageUrl": "https://my.giraffe360.com/3dflp/lvy850q",
+    "projectId": "c2b5124c88e94053999c40a4dd05d0b5",
+    "floor": "data/c2b5124c88e94053999c40a4dd05d0b5/floor_plan_3d_base_1_0.json",
+    "sunPath": "data/c2b5124c88e94053999c40a4dd05d0b5/sun_path_1_0",
+    "frameCount": 44,
+    "floorBytes": 2950891,
+    "posBytes": 23485,
+    "frameBytes": 2271684
+  },
+  "mission-rd": {
+    "pageUrl": "https://my.giraffe360.com/3dflp/byu4g6n",
+    "projectId": "76882d0571014d7d8ec8e06b8ac18b2b",
+    "floor": "data/76882d0571014d7d8ec8e06b8ac18b2b/floor_plan_3d_base_1_0.json",
+    "sunPath": "data/76882d0571014d7d8ec8e06b8ac18b2b/sun_path_1_0",
+    "frameCount": 48,
+    "floorBytes": 4321088,
+    "posBytes": 23494,
+    "frameBytes": 2662848
+  },
+  "flagler-st": {
+    "pageUrl": "https://my.giraffe360.com/3dflp/tph74oy",
+    "projectId": "03f59758c8fa451d9da4295d82c25dea",
+    "floor": "data/03f59758c8fa451d9da4295d82c25dea/floor_plan_3d_base_1_0.json",
+    "sunPath": "data/03f59758c8fa451d9da4295d82c25dea/sun_path_1_0",
+    "frameCount": 53,
+    "floorBytes": 3639017,
+    "posBytes": 23426,
+    "frameBytes": 2766270
+  }
+}
