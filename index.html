@@ -687,7 +687,7 @@ function setLoadProgress(done,total,label=''){
 }
 
 function uniqueAssetList(){
-  const images=new Set(['assets/agent-placeholder.png']);
+  const images=new Set(['assets/agent-placeholder.jpg']);
   const videos=new Set();
   properties.forEach(property=>{
     if(property.video)videos.add(property.video);
@@ -695,6 +695,15 @@ function uniqueAssetList(){
     if(property.heroImage)images.add(property.heroImage);
     (property.gallery||[]).forEach(image=>images.add(image));
   });
+  return {images:[...images],videos:[...videos]};
+}
+
+function startupAssetList(){
+  const first=properties[0]||{};
+  const images=new Set(['assets/agent-placeholder.jpg']);
+  if(first.heroImage)images.add(first.heroImage);
+  const videos=new Set();
+  if(first.video)videos.add(first.video);
   return {images:[...images],videos:[...videos]};
 }
 
@@ -714,17 +723,17 @@ async function warmVideo(src){
 }
 
 async function preloadStartupAssets(){
-  const {images,videos}=uniqueAssetList();
+  const {images,videos}=startupAssetList();
   const tasks=[
     ...images.map(src=>({type:'image',src,run:()=>loadImage(src)})),
     ...videos.map(src=>({type:'video',src,run:()=>warmVideo(src)}))
   ];
   let done=0;
-  setLoadProgress(done,tasks.length,'Preparing homes, videos, and tours.');
+  setLoadProgress(done,tasks.length,'Preparing the first peek.');
   const workers=Array.from({length:Math.min(4,tasks.length)},async()=>{
     while(tasks.length){
       const task=tasks.shift();
-      const label=task.type==='video'?'Loading video moments.':'Loading property images.';
+      const label=task.type==='video'?'Loading first video.':'Loading first images.';
       try{await task.run();}
       catch(error){}
       done+=1;
@@ -735,10 +744,30 @@ async function preloadStartupAssets(){
   setLoadProgress(images.length+videos.length,images.length+videos.length,'Ready.');
 }
 
+function preloadRemainingAssets(){
+  const initial=startupAssetList();
+  const initialImages=new Set(initial.images);
+  const initialVideos=new Set(initial.videos);
+  const {images,videos}=uniqueAssetList();
+  const remainingImages=images.filter(src=>!initialImages.has(src));
+  const remainingVideos=videos.filter(src=>!initialVideos.has(src));
+  const run=async()=>{
+    for(const src of remainingImages)loadImage(src);
+    for(const src of remainingVideos){
+      await warmVideo(src);
+      applyPreloadedVideoSources();
+    }
+  };
+  if('requestIdleCallback' in window)requestIdleCallback(run,{timeout:2500});
+  else setTimeout(run,800);
+}
+
 function applyPreloadedVideoSources(){
-  properties.forEach(property=>{
+  properties.forEach((property,index)=>{
     if(property.video&&videoBlobUrls.has(property.video))property.video=videoBlobUrls.get(property.video);
     if(property.tourVideo&&videoBlobUrls.has(property.tourVideo))property.tourVideo=videoBlobUrls.get(property.tourVideo);
+    const video=cards.querySelector(`video[data-feed-index="${index}"]`);
+    if(video&&property.video&&video.src!==property.video)video.src=property.video;
   });
 }
 
@@ -765,7 +794,7 @@ function showScreen(name){
 function renderFeed(){
   cards.innerHTML=properties.map((p,i)=>`
     <article class="card">
-      <video src="${p.video}" poster="${p.heroImage || ''}" ${i===0?'autoplay':''} loop playsinline></video>
+      <video data-feed-index="${i}" src="${p.video}" poster="${p.heroImage || ''}" ${i===0?'autoplay preload="auto"':'preload="metadata"'} loop playsinline></video>
       <div class="card-shade"></div>
       <div class="overlay">
         <div class="price">${p.price}</div>
@@ -1203,6 +1232,7 @@ async function startApp(){
     preloader.classList.add('hidden');
     app.classList.remove('is-loading');
   });
+  preloadRemainingAssets();
 }
 
 startApp();
