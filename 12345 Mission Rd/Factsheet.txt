@@ -1,0 +1,9 @@
+Location - 12345 Mission Rd San Antonio, 78210, United States
+Type - House
+Price - $750,000
+Total area - 1991ft²
+GLA - 1991ft²
+Land plot size - 350ft²
+Floor Count- 1
+Bedrooms - 3
+Bathrooms -4 

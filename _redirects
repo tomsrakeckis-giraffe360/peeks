@@ -1,0 +1,2 @@
+/api/floorplan/*  https://3dfloorplans.giraffe360.com/:splat  200
+/api/my-giraffe/*  https://my.giraffe360.com/:splat  200

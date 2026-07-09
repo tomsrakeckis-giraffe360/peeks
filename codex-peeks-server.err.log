@@ -1,0 +1,1472 @@
+127.0.0.1 - - [09/Jul/2026 16:11:11] "HEAD / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:11:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:11:23] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:11:23] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:11:23] code 404, message File not found
+127.0.0.1 - - [09/Jul/2026 16:11:23] "GET /favicon.ico HTTP/1.1" 404 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54845)
+Exception occurred during processing of request from ('127.0.0.1', 58231)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:13:32] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:13:32] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:13:32] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52442)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 51998)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:15:17] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:15:18] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53014)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:15:35] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56996)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:15:36] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:16:01] "GET / HTTP/1.1" 304 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60911)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 54121)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:16:01] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:16:01] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57322)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 56249)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:17:47] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:17:47] "GET /12345%20Mission%20Rd/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:17:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:17:59] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:17:59] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:18:00] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59251)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 54080)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:36:10] "HEAD / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:38:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:38:22] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:38:22] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:26] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:26] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:29] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL001.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:30] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL003.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:31] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL006.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:31] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL011.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:35] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL014.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:35] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL019.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:37] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL022.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:37] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL025.jpg HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:39:37] "GET /De%C4%BCu%20iela/Images/CAM06080G6-PR0019-STILL027.jpg HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64370)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 61969)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:47:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:48:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:48:16] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:48:16] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:48:28] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:48:28] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54381)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 50589)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60275)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:49:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:49:52] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:49:52] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:49:53] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:49:53] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59412)
+Exception occurred during processing of request from ('127.0.0.1', 54967)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 53099)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:50:31] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:50:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:50:45] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:50:45] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:50:45] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:50:45] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63981)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 52260)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+Exception occurred during processing of request from ('127.0.0.1', 60211)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:51:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:51:54] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:51:54] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:51:54] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:51:54] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55537)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 65204)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+Exception occurred during processing of request from ('127.0.0.1', 49568)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:52:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:52:35] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:52:35] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:52:36] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:52:36] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59797)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 61683)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:53:04] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:53:04] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51386)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:53:05] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:53:05] "GET /12345%20Mission%20Rd/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55876)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:53:05] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 65436)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:53:57] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 61080)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+Exception occurred during processing of request from ('127.0.0.1', 51678)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 16:53:57] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:53:57] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:53:58] "GET /De%C4%BCu%20iela/Drone%20Video/Drone.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 16:53:59] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62877)
+Exception occurred during processing of request from ('127.0.0.1', 54710)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:02:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:02:53] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:02:53] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:03:00] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53850)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 58388)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:03:49] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:04:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:04:17] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:04:17] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:04:19] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60683)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 59247)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:06:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:06:59] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:06:59] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55270)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53593)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:12:04] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:12:06] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:12:07] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:12:07] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:12:08] "GET / HTTP/1.1" 304 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57336)
+Traceback (most recent call last):
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Exception occurred during processing of request from ('127.0.0.1', 49887)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+----------------------------------------
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:12:08] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:12:08] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:12:10] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50832)
+Exception occurred during processing of request from ('127.0.0.1', 51667)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:31:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:31:17] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:31:17] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:31:19] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51306)
+Exception occurred during processing of request from ('127.0.0.1', 61507)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:31:59] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:32:02] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 58868)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:32:07] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:32:08] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:32:08] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:32:11] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:32:11] "GET /12345%20Mission%20Rd/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:32:14] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:33:52] "GET / HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 65232)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 62869)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+----------------------------------------
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:33:56] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:33:56] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50597)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62650)
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:46:28] "GET /De%C4%BCu%20iela/3dmodel.txt HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:54:36] "GET /viewer/ HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:54:36] "GET /viewer/assets/index-DNeYVCnI.js HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:55:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:55:23] "GET /De%C4%BCu%20iela/Feed%20Video/Delu%20iela.mp4 HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:55:23] "GET /12345%20Mission%20Rd/Full%20Video.mp4 HTTP/1.1" 200 -
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57305)
+Exception occurred during processing of request from ('127.0.0.1', 59062)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 1326, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 428, in handle_one_request
+    method()
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\http\server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+  File "C:\Users\tomsr\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+----------------------------------------
+----------------------------------------
+127.0.0.1 - - [09/Jul/2026 17:58:21] "GET /viewer/?peeks=1&property=delu-iela HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:58:22] "GET /viewer/index.html?peeks=1&property=delu-iela HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 17:58:51] "GET /viewer/index.html?peeks=1&property=delu-iela HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 18:02:01] "GET /viewer/index.html?peeks=1&property=delu-iela HTTP/1.1" 200 -
+127.0.0.1 - - [09/Jul/2026 18:04:06] code 404, message File not found
+127.0.0.1 - - [09/Jul/2026 18:04:06] "GET /api/my-giraffe/3dflp/lvy850q HTTP/1.1" 404 -
+127.0.0.1 - - [09/Jul/2026 18:04:06] "GET /viewer/assets/index-DQhgCxke.js HTTP/1.1" 200 -

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giraffe360 Floor Plan Viewer</title>
+  <script>
+    if (new URLSearchParams(location.search).has('peeks')) {
+      document.documentElement.classList.add('peeks-embed');
+    }
+  </script>
+  <style>
+    html.peeks-embed,
+    html.peeks-embed body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+    }
+    html.peeks-embed header,
+    html.peeks-embed #debug-bar,
+    html.peeks-embed .app-tabs,
+    html.peeks-embed .g-topbar-right,
+    html.peeks-embed .entrance-labels,
+    html.peeks-embed .blender-bar,
+    html.peeks-embed #room-info,
+    html.peeks-embed .inspect-panel,
+    html.peeks-embed .g-footer-left,
+    html.peeks-embed .g-credit,
+    html.peeks-embed #render-panel,
+    html.peeks-embed #render-bar,
+    html.peeks-embed #render-safeframe,
+    html.peeks-embed #render-progress,
+    html.peeks-embed #plan-panel {
+      display: none !important;
+    }
+    html.peeks-embed #app {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+    html.peeks-embed #viewport {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+    }
+    html.peeks-embed #canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-BAbNJv93.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-5pEUDOmA.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="logo">floor<span>plan</span>.viewer</div>
+      <div class="badge">Three.js · Object3D JSON</div>
+      <div class="header-right">
+        <div class="status">
+          <div class="dot"></div>
+          <span id="status-text">Loading…</span>
+        </div>
+      </div>
+    </header>
+
+    <aside id="debug-bar" class="closed">
+      <!-- Master toggle — collapses the entire sidebar to a thin strip -->
+      <button class="sidebar-toggle" id="debug-toggle" title="Toggle tools panel">
+        <span class="sidebar-toggle-chev material-symbols-rounded">chevron_right</span>
+        <span class="sidebar-toggle-label">TOOLS</span>
+      </button>
+
+      <!-- Custom URL + export — expanded by default -->
+      <section class="panel collapsible">
+        <header class="panel-header"><h3>Custom URL / Export</h3><span class="panel-chev material-symbols-rounded">expand_more</span></header>
+        <div class="panel-body">
+          <input type="text" id="fp-url" placeholder="paste giraffe360 .json URL…" />
+          <button id="fp-load">Load</button>
+          <button id="fp-export" class="secondary">Download .glb</button>
+        </div>
+      </section>
+
+      <!-- Debug section — open by default since it's the main dev tool -->
+      <section class="panel collapsible">
+        <header class="panel-header"><h3>Debug</h3><span class="panel-chev material-symbols-rounded">expand_more</span></header>
+        <div class="panel-body">
+          <label class="row"><span>2D furniture</span><div class="tog" id="tog-sym3d"></div></label>
+          <label class="row"><span>3D furniture</span><div class="tog on" id="tog-furn3d"></div></label>
+          <label class="row"><span>All 3D furniture</span><div class="tog on" id="tog-allfurn3d"></div></label>
+          <label class="row"><span>Debug mode</span><div class="tog" id="tog-debug"></div></label>
+          <label class="row" id="row-nodim" hidden><span>Disable dimming</span><div class="tog" id="tog-nodim"></div></label>
+          <div id="debug-groups" class="dbg-groups" hidden></div>
+          <div id="debug-footer" class="dbg-footer" hidden>
+            <button id="dbg-toggle-all">Hide all</button>
+            <button id="dbg-reset-colors">Reset colours</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Model info — collapsed by default -->
+      <section class="panel collapsible collapsed">
+        <header class="panel-header"><h3>Model info</h3><span class="panel-chev material-symbols-rounded">expand_more</span></header>
+        <div class="panel-body">
+          <div class="stat"><span>generator</span><b id="i-gen">—</b></div>
+          <div class="stat"><span>version</span>  <b id="i-ver">—</b></div>
+          <div class="stat"><span>geometries</span><b id="i-geo">—</b></div>
+          <div class="stat"><span>meshes</span>   <b id="i-mesh" class="a2">—</b></div>
+          <div class="stat"><span>line segs</span><b id="i-line" class="a1">—</b></div>
+          <div class="stat"><span>vertices</span> <b id="i-vert">—</b></div>
+          <div class="stat"><span>triangles</span><b id="i-tri">—</b></div>
+        </div>
+      </section>
+
+      <!-- Fill color — collapsed by default -->
+      <section class="panel collapsible collapsed">
+        <header class="panel-header"><h3>Fill color</h3><span class="panel-chev material-symbols-rounded">expand_more</span></header>
+        <div class="panel-body">
+          <div class="swatches" id="fill-sw"></div>
+        </div>
+      </section>
+
+      <!-- Outline color — collapsed by default -->
+      <section class="panel collapsible collapsed">
+        <header class="panel-header"><h3>Outline color</h3><span class="panel-chev material-symbols-rounded">expand_more</span></header>
+        <div class="panel-body">
+          <div class="swatches" id="line-sw"></div>
+        </div>
+      </section>
+
+      <div id="debug-resize" title="Drag to resize"></div>
+    </aside>
+
+    <div id="viewport">
+      <div id="loading">
+        <div class="cube-scene">
+          <div class="cube">
+            <div class="cube-face front"></div>
+            <div class="cube-face back"></div>
+            <div class="cube-face right"></div>
+            <div class="cube-face left"></div>
+            <div class="cube-face top"></div>
+            <div class="cube-face bottom"></div>
+          </div>
+        </div>
+      </div>
+      <div id="error" style="display:none">
+        <div class="err-title">Load failed</div>
+        <div class="err-msg" id="err-msg">—</div>
+      </div>
+      <canvas id="canvas"></canvas>
+
+      <!-- Entrance markers (door icon badges), billboarded over the scene in
+           both 2D and 3D. Anchored at each entrance node's world position from
+           the JSON "entrances" group; projected every frame in main.js. -->
+      <div id="entrance-labels" class="entrance-labels"></div>
+
+      <!-- Top-level tab switch: Explore (the viewer) vs Render (the video studio).
+           Visible in both tabs; clicking toggles body.mode-render (wired in main.js). -->
+      <div class="app-tabs" id="app-tabs" role="tablist" aria-label="Workspace">
+        <button class="app-tab is-active" id="tab-explore" role="tab" aria-selected="true" type="button">
+          <span class="material-symbols-rounded">view_in_ar</span><span>Explore</span>
+        </button>
+        <button class="app-tab" id="tab-plan" role="tab" aria-selected="false" type="button">
+          <span class="material-symbols-rounded">subject</span><span>Plan</span>
+        </button>
+        <button class="app-tab" id="tab-render" role="tab" aria-selected="false" type="button">
+          <span class="material-symbols-rounded">movie</span><span>Render</span>
+        </button>
+      </div>
+
+      <!-- Giraffe top-left pill (Figma): [ mode dropdown ▾ | divider | 3D 2D ☀ ].
+           The dropdown reuses the project-picker JS (same #g-project-* ids). -->
+      <div class="g-view-pill">
+        <!-- Figma "Interactive" view-mode dropdown. "Static" mode isn't built yet,
+             so it's shown disabled/greyed out. -->
+        <div class="g-mode-select" id="g-mode-select">
+          <button class="g-mode-btn" id="g-mode-btn">
+            <span class="g-mode-label" id="g-mode-label">Interactive</span>
+            <span class="g-chev material-symbols-rounded">expand_more</span>
+          </button>
+          <ul class="g-mode-list" id="g-mode-list" hidden>
+            <li class="active">Interactive</li>
+            <li class="disabled" title="Not available yet">Static</li>
+          </ul>
+        </div>
+        <span class="g-pill-divider"></span>
+        <button id="g-3d" class="g-toggle"        title="3D perspective">3D</button>
+        <button id="g-2d" class="g-toggle active" title="2D top-down (ortho)">2D</button>
+        <button id="g-sun" class="g-toggle g-sun" title="Sun path" hidden>
+          <span class="material-symbols-rounded">clear_day</span>
+        </button>
+      </div>
+
+      <!-- Sun-path scrubber (baked-lightmap mode). Hidden until the Project 1
+           sun frames are loaded AND the sun toggle is on. Mirrors Giraffe360's
+           top bar: sunrise icon · time slider · sun icon · time · date · play. -->
+      <div class="sunpath-bar" id="sunpath-bar" hidden>
+        <button class="sp-close" id="sunpath-close" title="Exit sun path" aria-label="Exit sun path">
+          <span class="material-symbols-rounded">close</span>
+        </button>
+        <span class="sp-slider">
+          <!-- Sunrise — exact Figma vector (node 791:7490) -->
+          <svg class="sp-icon" viewBox="0 0 24 17" width="20" height="14" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" title="Sunrise">
+            <path d="M4 12H0M5.33333 5.33333L2.66667 2.66667M12 0V4M18.6667 5.33333L21.3333 2.66667M20 12H24"/>
+            <path d="M24 16.0013H16L12 12.668L8 16.0013H0"/>
+            <path d="M17.3327 12.0013C17.3327 10.5868 16.7708 9.23026 15.7706 8.23007C14.7704 7.22987 13.4138 6.66797 11.9993 6.66797C10.5848 6.66797 9.22832 7.22987 8.22812 8.23007C7.22793 9.23026 6.66602 10.5868 6.66602 12.0013"/>
+          </svg>
+          <input type="range" id="sunpath-range" class="sp-range" min="0" max="100" value="50" step="1" />
+          <!-- Sunset — exact Figma vector (node 791:7504) -->
+          <svg class="sp-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" title="Sunset">
+            <path d="M4 14H0M5.33333 7.33333L2.66667 4.66667M12 2V6M18.6667 7.33333L21.3333 4.66667M20 14H24"/>
+            <path d="M24 18H16L12 20.6667L8 18H0"/>
+            <path d="M17.3327 14.0013C17.3327 12.5868 16.7708 11.2303 15.7706 10.2301C14.7704 9.22987 13.4138 8.66797 11.9993 8.66797C10.5848 8.66797 9.22832 9.22987 8.22812 10.2301C7.22793 11.2303 6.66602 12.5868 6.66602 14.0013"/>
+          </svg>
+        </span>
+        <span class="sp-divider"></span>
+        <span class="sp-time" id="sunpath-time">—</span>
+        <span class="sp-divider"></span>
+        <span class="sp-date" id="sunpath-date">—</span>
+        <span class="sp-divider"></span>
+        <button class="sp-play" id="sunpath-play" title="Play sun path">
+          <span class="sp-play-icon material-symbols-rounded">autoplay</span>
+          <span class="sp-pause-icon material-symbols-rounded" hidden>autostop</span>
+        </button>
+      </div>
+
+      <!-- Blender workspace bar — only visible on the "Blender-edited" preset.
+           Pick a source floor plan and generate it into the open Blender (needs
+           Blender running with the MCP add-on). -->
+      <div class="blender-bar collapsed" id="blender-bar" hidden>
+        <!-- Header: doubles as the dropdown toggle (click to expand/collapse) -->
+        <div class="bb-head" id="bb-toggle" role="button" tabindex="0" aria-expanded="false" title="Show / hide Blender controls">
+          <span class="bb-label">Blender</span>
+          <span class="bb-head-actions">
+            <button id="bb-info" class="bb-icon" title="How to run locally" aria-label="How to run locally">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5v.01"/>
+              </svg>
+            </button>
+            <span class="bb-chev material-symbols-rounded" aria-hidden="true">expand_more</span>
+          </span>
+        </div>
+
+        <!-- Collapsible body: everything below the header -->
+        <div class="bb-body" id="bb-body">
+        <!-- Row 1: project -->
+        <select id="bb-src" class="bb-src"></select>
+
+        <!-- Row 2: generate the floor-plan mesh + sync -->
+        <div class="bb-row">
+          <button id="bb-generate" class="bb-btn">Generate Floorplan in Blender</button>
+          <button id="bb-reload" class="bb-icon" title="Sync from Blender & reload">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+              <path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Row 3: sun-path bake prep + sync -->
+        <div class="bb-row">
+          <button id="bb-sun" class="bb-btn" title="Bake prep: re-import the floor plan, position the sun from this project's data, and run interior_bake_prep (shared Lightmap atlas on the originals + a joined Inside_Bake copy with the Inside material + sunrise→sunset frame range)">Generate Sun Path in Blender</button>
+          <button id="bb-reload-sun" class="bb-icon" title="Sync from Blender & reload">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+              <path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Row 3b: empty-room sun-path bake prep (no 3D furniture) -->
+        <div class="bb-row">
+          <button id="bb-sun-nofurn" class="bb-btn" title="Same as Generate Sun Path, but imports WITHOUT 3D furniture — bakes the empty-room lightmap (no furniture geometry or shadows). Note: dropping furniture re-packs the atlas, so these UVs differ from the with-furniture bake.">Generate Sun Path — no furniture</button>
+        </div>
+
+        <!-- Row 4: port + save -->
+        <div class="bb-row">
+          <label class="bb-port-wrap" title="BlenderMCP socket port (must match the port set in the Blender add-on)">
+            port <input id="bb-port" class="bb-port" type="number" min="1" max="65535" value="9876" />
+          </label>
+          <select id="bb-fmt" class="bb-src" title="Save format">
+            <option value="json">.json</option>
+            <option value="glb">.glb</option>
+          </select>
+          <button id="bb-save" class="bb-btn-sec">Save</button>
+        </div>
+
+        <span id="bb-status" class="bb-status"></span>
+        </div><!-- /.bb-body -->
+
+        <!-- Instructions popover (toggled by the ⓘ button) -->
+        <div id="bb-help" class="bb-help" hidden>
+          <h4>Run the Blender bridge locally</h4>
+          <p>The Generate / sync buttons drive Blender on <b>your own machine</b>, through a small bridge you run locally.</p>
+          <ol>
+            <li>Clone the repo and run <code>npm install</code>.</li>
+            <li>Open <b>Blender</b> with the <b>BlenderMCP add-on</b> enabled. Its socket port must match the <b>port</b> field in this bar (default <code>9876</code>).</li>
+            <li>In the project folder, run <code>npm run bridge</code> — it starts the bridge on <code>http://localhost:7531</code>.</li>
+            <li>Pick a floor plan in the dropdown → <b>Generate in Blender</b> → edit the walls in Blender (move objects; scale/rotate the root for comfort — it's divided out).</li>
+            <li>Click <b>⟳</b> to pull your edits back and reload the view.</li>
+            <li><b>Save</b> the result as <code>.json</code> or <code>.glb</code>.</li>
+          </ol>
+          <p class="bb-help-note">Blender + the bridge must run on the same machine as your browser. If this site is served over HTTPS, allow the <code>http://localhost</code> connection (Chrome/Edge permit it by default). When the bridge is offline, this preset shows the last committed version.</p>
+
+          <h4 style="margin-top:14px">Make 3D furniture</h4>
+          <p>A 3D piece is built from two optional parts — a solid <b>mesh</b> and its <b>outline</b> — both shown only in the 3D view, scoped to the room. Every furniture symbol carries three editable custom properties: <code>room_ids</code>, <code>3D</code>, and <code>3D&nbsp;Outline</code>.</p>
+          <p style="margin-top:8px"><b>Solid mesh:</b></p>
+          <ol>
+            <li><b>Duplicate</b> a furniture symbol (Shift+D) — the copy inherits its <code>room_ids</code>, keeping it linked to that room.</li>
+            <li>Build it into a <b>solid</b> (extrude / add faces) and fill the faces with the <b>furniture3D</b> material (already in the file).</li>
+            <li>Set its <code>3D</code> property to <code>1</code>.</li>
+          </ol>
+          <p style="margin-top:8px"><b>Outline (optional):</b></p>
+          <ol>
+            <li>Duplicate a line symbol (or your own line work), keeping its <code>room_ids</code>.</li>
+            <li>Set its <code>3D&nbsp;Outline</code> property to <code>1</code>.</li>
+          </ol>
+          <p style="margin-top:8px">Click <b>⟳</b> — the mesh renders flat-white, the outline as dark lines, both shown in 3D only when their room is selected.</p>
+          <p class="bb-help-note">Different room? Copy a <code>room_ids</code> value from any asset already in that room and paste it onto yours. In the <b>tools drawer</b>: <b>3D furniture</b> shows/hides these (on by default); <b>2D furniture</b> also shows the flat symbols in 3D (off by default). 2D view always shows the flat symbols.</p>
+
+          <h4 style="margin-top:14px">Sun path &amp; bake prep</h4>
+          <p>The <b>☀ Sun</b> button prepares the open floor plan for an ambient-occlusion / sun-path <b>lightmap bake</b> in one pass. It needs the open <code>.blend</code> to already contain the <b>Inside</b> (AO) material and the <b>Sun Position</b> add-on set to this project's location, date &amp; UTC zone.</p>
+          <ol>
+            <li>Click <b>☀ Sun</b>. It re-imports the current floor plan, positions the Sun from the project data, and runs <code>interior_bake_prep</code>.</li>
+            <li>The interior surfaces (walls, caps, floor, furniture, doors) get one shared, non-overlapping <b>Lightmap</b> UV atlas, written back onto the <b>originals</b> — which are otherwise left untouched and gathered in an <b>Original</b> collection, ready to sync back to the viewer.</li>
+            <li>A <b>copy</b> of those surfaces (plus the ceiling, kept as a hidden-from-camera light occluder) is joined into one <b>Inside_Bake</b> mesh with the <b>Inside</b> material in a <b>Copy</b> collection — this is what you bake.</li>
+            <li>The timeline is set from <b>sunrise to sunset</b> at <b>15&nbsp;min/frame</b> (rounded to the grid, UTC/DST-aware) — scrubbing frames moves the Sun.</li>
+          </ol>
+          <p class="bb-help-note">Bake the lightmap on the <b>Copy</b> group (into the Inside material's image node), then sync the <b>Original</b> back — the viewer samples the baked texture through the shared Lightmap UVs. Working on the copy keeps the originals' per-asset properties intact.</p>
+        </div>
+      </div>
+
+      <!-- (project picker moved into the top-left view pill above) -->
+
+      <!-- Giraffe top-right group (Figma): room selector + floor stepper + building -->
+      <div class="g-topbar-right">
+        <div class="g-room-select" id="g-room-select">
+          <button class="g-room-btn" id="g-room-btn">
+            <span id="g-room-btn-label">Select a room</span>
+            <span class="g-chev material-symbols-rounded">expand_more</span>
+          </button>
+          <ul class="g-room-list" id="g-room-list" hidden></ul>
+        </div>
+
+        <!-- Project picker (moved out of the view pill; sits right of the room selector) -->
+        <div class="g-project-select" id="g-project-select">
+          <button class="g-project-btn" id="g-project-btn">
+            <span id="g-project-btn-label">Loading…</span>
+            <span class="g-chev material-symbols-rounded">expand_more</span>
+          </button>
+          <ul class="g-project-list" id="g-project-list" hidden></ul>
+        </div>
+
+        <!-- Floor stepper — single-floor data, so the steppers render disabled.
+             Hidden for now (remove `hidden` to bring it back). -->
+        <div class="g-floor-pill" id="g-floor-pill" title="Floor" hidden>
+          <span class="g-floor-num" id="g-floor-num">1</span>
+          <span class="g-floor-ic material-symbols-rounded">stacks</span>
+          <span class="g-floor-steps">
+            <button class="g-step" id="g-floor-up" type="button" title="Floor up" disabled><span class="material-symbols-rounded">keyboard_arrow_up</span></button>
+            <button class="g-step" id="g-floor-down" type="button" title="Floor down" disabled><span class="material-symbols-rounded">keyboard_arrow_down</span></button>
+          </span>
+        </div>
+
+        <!-- Building — hidden for now (remove `hidden` to bring it back) -->
+        <div class="g-building-pill" title="Building" hidden>
+          <span class="g-building-num">1</span>
+          <span class="material-symbols-rounded">cottage</span>
+        </div>
+      </div>
+
+      <div id="room-info" class="room-info hidden">
+        <button id="room-close" title="Deselect">×</button>
+        <div class="room-name" id="room-name"></div>
+        <div class="room-area" id="room-area"></div>
+      </div>
+
+      <!-- Debug inspect panel: shows the clicked mesh's name + group info.
+           Only used when Debug mode is on. Click-to-select-room is suppressed
+           in that case; the panel takes the click and reports what was hit. -->
+      <div id="inspect-panel" class="inspect-panel" hidden>
+        <button id="inspect-close" title="Close">×</button>
+        <h4>Asset inspect</h4>
+        <table id="inspect-body"></table>
+        <div class="inspect-hint">Click another mesh to inspect it · Toggle Debug mode off to resume normal room selection</div>
+      </div>
+      <!-- Giraffe footer (bottom-left): cookie + info, in one pill -->
+      <div class="g-footer-left">
+        <button class="g-foot-btn" id="g-cookie" type="button" title="Cookie settings" aria-label="Cookie settings">
+          <span class="material-symbols-rounded">cookie</span>
+        </button>
+        <button class="g-foot-btn" id="g-info" type="button" title="Info" aria-label="Info">
+          <span class="material-symbols-rounded">info</span>
+        </button>
+      </div>
+
+      <a class="g-credit" href="https://giraffe360.com" target="_blank" rel="noreferrer">MADE BY GIRAFFE360</a>
+
+      <!-- ── Render tab UI (hidden unless body.mode-render) ───────────────────────
+           The settings drive the SAME viewer for a live preview; the Render button
+           exports an MP4 of the canvas only (DOM UI is never in the frame). -->
+      <div id="render-safeframe" class="render-safeframe" hidden aria-hidden="true"></div>
+
+      <aside id="render-panel" class="render-panel" hidden aria-label="Render settings">
+        <div class="rp-head"><span class="material-symbols-rounded">movie</span><h2>Render</h2></div>
+
+        <div class="rp-field">
+          <label>Resolution</label>
+          <div class="rs-seg" id="rs-aspect">
+            <button class="rs-seg-btn is-active" type="button" data-v="16:9">16:9</button>
+            <button class="rs-seg-btn" type="button" data-v="9:16">9:16</button>
+          </div>
+        </div>
+
+        <div class="rp-field">
+          <label for="rs-room">Room</label>
+          <select id="rs-room" class="rs-select"><option value="">Whole floor (no room)</option></select>
+        </div>
+
+        <div class="rp-field">
+          <label>Mode</label>
+          <div class="rs-seg" id="rs-mode">
+            <button class="rs-seg-btn" type="button" data-v="2d">2D</button>
+            <button class="rs-seg-btn is-active" type="button" data-v="3d">3D</button>
+            <button class="rs-seg-btn" type="button" data-v="sun" id="rs-mode-sun">Sun Path</button>
+          </div>
+        </div>
+
+        <div class="rp-field rp-sub" id="rs-sun-opts" hidden>
+          <label>Sun</label>
+          <div class="rs-seg" id="rs-sun-mode">
+            <button class="rs-seg-btn is-active" type="button" data-v="sweep">Sweep day</button>
+            <button class="rs-seg-btn" type="button" data-v="fixed">Fixed time</button>
+          </div>
+          <div class="rs-inline" id="rs-sun-time-wrap" hidden>
+            <input type="range" id="rs-sun-time" class="rs-range" min="0" max="100" value="50" />
+            <span class="rs-num" id="rs-sun-time-label">—</span>
+          </div>
+        </div>
+
+        <div class="rp-field">
+          <label>Camera</label>
+          <div class="rs-seg" id="rs-traj">
+            <button class="rs-seg-btn is-active" type="button" data-v="orbit">Orbit</button>
+            <button class="rs-seg-btn" type="button" data-v="static">Static</button>
+            <button class="rs-seg-btn" type="button" data-v="ab">A → B</button>
+          </div>
+        </div>
+
+        <div class="rp-field rp-sub" id="rs-orbit-opts">
+          <label for="rs-orbit-deg">Orbit sweep</label>
+          <div class="rs-inline">
+            <input type="range" id="rs-orbit-deg" class="rs-range" min="30" max="360" step="10" value="360" />
+            <span class="rs-num" id="rs-orbit-deg-label">360°</span>
+          </div>
+        </div>
+
+        <div class="rp-field rp-sub" id="rs-ab-opts" hidden>
+          <label>Keyframes</label>
+          <div class="rs-inline rs-ab-row">
+            <button class="rs-btn-sec" type="button" id="rs-set-a">Set A</button>
+            <button class="rs-btn-sec" type="button" id="rs-set-b">Set B</button>
+            <button class="rs-btn-sec rs-btn-mini" type="button" id="rs-goto-a" title="Jump to A">A</button>
+            <button class="rs-btn-sec rs-btn-mini" type="button" id="rs-goto-b" title="Jump to B">B</button>
+          </div>
+          <span class="rs-hint" id="rs-ab-status">Frame the camera, then Set A and Set B.</span>
+        </div>
+
+        <div class="rp-field">
+          <label>Motion</label>
+          <div class="rs-seg" id="rs-interp">
+            <button class="rs-seg-btn is-active" type="button" data-v="ease">Ease in/out</button>
+            <button class="rs-seg-btn" type="button" data-v="linear">Linear</button>
+          </div>
+        </div>
+
+        <div class="rp-field">
+          <label for="rs-length">Length</label>
+          <div class="rs-inline">
+            <input type="range" id="rs-length" class="rs-range" min="1" max="30" step="0.5" value="8" />
+            <span class="rs-num" id="rs-length-label">8.0s</span>
+          </div>
+        </div>
+
+        <button class="rs-render-btn" type="button" id="rs-render">
+          <span class="material-symbols-rounded">movie</span> Render MP4
+        </button>
+        <p class="rs-foot" id="rs-encoder-note">1080p · 30 fps · H.264 MP4</p>
+      </aside>
+
+      <!-- Bottom transport: preview the clip in real time before rendering. -->
+      <div id="render-bar" class="render-bar" hidden>
+        <button class="rb-play" id="rb-play" type="button" title="Play preview" aria-label="Play preview">
+          <span class="rb-play-icon material-symbols-rounded">play_arrow</span>
+          <span class="rb-pause-icon material-symbols-rounded" hidden>pause</span>
+        </button>
+        <input type="range" id="rb-scrub" class="rb-scrub" min="0" max="1000" value="0" />
+        <span class="rb-time" id="rb-time">0.0s / 8.0s</span>
+      </div>
+
+      <!-- Export progress overlay (covers the viewport while encoding). -->
+      <div id="render-progress" class="render-progress" hidden>
+        <div class="rpro-card">
+          <div class="rpro-title" id="rpro-title">Rendering…</div>
+          <div class="rpro-track"><div class="rpro-fill" id="rpro-fill"></div></div>
+          <div class="rpro-msg" id="rpro-msg">Preparing…</div>
+          <button class="rs-btn-sec" type="button" id="rpro-cancel">Cancel</button>
+        </div>
+      </div>
+
+      <section id="plan-panel" class="plan-panel" hidden aria-label="Property planning">
+        <aside class="plan-library">
+          <div class="plan-brand">GIRAFFE IQ</div>
+          <h2>Property plan</h2>
+          <div class="plan-search-row">
+            <input id="plan-search" type="search" placeholder="Search properties" />
+            <button id="plan-refresh" type="button" title="Refresh property library" aria-label="Refresh property library">
+              <span class="material-symbols-rounded">refresh</span>
+            </button>
+          </div>
+          <div id="plan-summary" class="plan-summary">Loading properties...</div>
+          <div id="plan-list" class="plan-list"></div>
+        </aside>
+
+        <article class="plan-detail">
+          <div id="plan-empty" class="plan-empty">
+            <h3>Select a property</h3>
+            <p>Facts, property reasoning, voiceovers, clip plans, and linked 3D/sunpath sources appear here.</p>
+          </div>
+
+          <div id="plan-property" class="plan-property" hidden>
+            <header class="plan-detail-head">
+              <div>
+                <div class="plan-eyebrow">PROPERTY</div>
+                <h3 id="plan-title"></h3>
+                <div id="plan-path" class="plan-path"></div>
+              </div>
+              <div class="plan-actions">
+                <button id="plan-open-3d" type="button" class="plan-primary">Open 3D</button>
+                <button id="plan-process" type="button">Generate property read</button>
+              </div>
+            </header>
+
+            <div id="plan-status" class="plan-status"></div>
+
+            <section class="plan-card plan-read-card">
+              <header>
+                <h4>Property read</h4>
+                <span id="plan-recommendation" class="plan-muted"></span>
+              </header>
+              <div id="plan-read" class="plan-read"></div>
+            </section>
+
+            <div class="plan-grid">
+              <section class="plan-card">
+                <header><h4>Facts</h4></header>
+                <dl id="plan-facts" class="plan-facts"></dl>
+              </section>
+              <section class="plan-card">
+                <header><h4>Assets</h4></header>
+                <div id="plan-assets" class="plan-assets"></div>
+              </section>
+            </div>
+
+            <section class="plan-card">
+              <header>
+                <h4>3D and sunpath</h4>
+                <span id="plan-source-status" class="plan-muted"></span>
+              </header>
+              <div id="plan-sources" class="plan-sources"></div>
+            </section>
+
+            <section class="plan-card">
+              <header>
+                <h4>Voiceovers</h4>
+                <span id="plan-vo-status" class="plan-muted"></span>
+              </header>
+              <div class="plan-tabs">
+                <button type="button" data-plan-vo="full">Full</button>
+              </div>
+              <p id="plan-vo-text" class="plan-vo-text"></p>
+              <div id="plan-vo-backups" class="plan-vo-backups"></div>
+            </section>
+
+            <section class="plan-card">
+              <header>
+                <h4>Clip plan</h4>
+                <span id="plan-clip-status" class="plan-muted"></span>
+              </header>
+              <div id="plan-clips" class="plan-clips"></div>
+            </section>
+
+            <section class="plan-card">
+              <header>
+                <h4>3D render plan</h4>
+                <span id="plan-model-status" class="plan-muted"></span>
+              </header>
+              <div id="plan-model-renders" class="plan-model-renders"></div>
+            </section>
+          </div>
+        </article>
+      </section>
+    </div>
+
+  </div>
+
+</body>
+</html>

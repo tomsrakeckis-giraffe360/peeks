@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giraffe Peeks</title>
+<link href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=DM+Mono:wght@300;400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f6f3;--surface:#fbfaf8;--line:rgba(147,141,132,.18);--soft:#c1bcb4;--mid:#aaa39a;--text:#8f877e;--ink:#111;
+  --mono:"DM Mono",monospace;--sans:"Inter",sans-serif;--stage-scale:1;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
+}
+html,body{width:100%;height:100%;min-height:100%;overflow:hidden;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.88),rgba(255,255,255,0) 30%),linear-gradient(180deg,#efede9 0%,#e4e0da 100%);font-family:var(--sans);color:var(--text)}
+body{display:flex;align-items:center;justify-content:center}
+.app{position:relative;width:min(100vw,430px);height:min(100vh,932px);height:min(100dvh,932px);overflow:hidden;flex:0 0 auto;background:#0f0f10;box-shadow:0 28px 90px rgba(67,62,55,.18)}
+.app:after{display:none}
+.screen{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .34s ease}
+.screen.active{opacity:1;pointer-events:auto}
+.topbar{position:absolute;top:0;left:0;right:0;height:calc(64px + var(--safe-top));padding:var(--safe-top) 22px 0;z-index:14}
+.topbar:before{content:"";position:absolute;inset:0 0 -26px;background:transparent;opacity:0;pointer-events:none;transition:opacity .28s ease}
+.app.video-header .topbar:before{opacity:1}
+.wordmark{position:absolute;left:50%;top:calc(var(--safe-top) + 32px);transform:translate(-50%,-50%);font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.58);border:none;background:none;white-space:nowrap}
+.detail .wordmark{color:var(--soft)}
+.topbtn{width:30px;height:30px;border-radius:999px;border:1px solid rgba(255,255,255,.20);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);box-shadow:0 5px 16px rgba(0,0,0,.12),inset 0 1px 0 rgba(255,255,255,.30);color:#fff;cursor:pointer}
+.detail .topbtn{border-color:rgba(191,186,177,.24);background:rgba(255,255,255,.62);color:#aba39a}
+.app.video-header .wordmark{color:rgba(255,255,255,.58);text-shadow:none}
+.app.video-header .topbtn{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.13);color:#fff;box-shadow:0 5px 16px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.28)}
+.app.tour-header .wordmark{color:var(--soft);text-shadow:none}
+.app.tour-header .topbtn{border-color:rgba(191,186,177,.24);background:rgba(255,255,255,.62);color:#aba39a;box-shadow:0 5px 16px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.55)}
+.topicon{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.topbar-left{position:absolute;left:24px;top:calc(var(--safe-top) + 32px);transform:translateY(-50%);display:flex;align-items:center;gap:8px}
+.topbar-right{position:absolute;right:24px;top:calc(var(--safe-top) + 32px);transform:translateY(-50%);display:flex;align-items:center;gap:8px}
+#next-section-btn{display:none}
+.feed{position:absolute;inset:0;overflow:hidden;background:#101011}
+.cards{height:100%;width:100%;touch-action:pan-y;transition:transform .62s cubic-bezier(.22,.8,.2,1)}
+.card{position:relative;height:100%;width:100%;overflow:hidden;background:#111}
+.card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#111}
+.card-shade{position:absolute;top:0;left:0;right:0;height:240px;background:linear-gradient(180deg,rgba(0,0,0,.52) 0%,rgba(0,0,0,.24) 42%,rgba(0,0,0,0) 100%);z-index:2}
+.overlay{position:absolute;left:50%;top:76px;transform:translateX(-50%);width:calc(100% - 48px);display:flex;flex-direction:column;align-items:center;text-align:center;z-index:5;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.14)}
+.eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.48);margin-bottom:10px}
+.price{font-size:28px;line-height:1;font-weight:200;letter-spacing:-.05em;margin-bottom:8px}
+.addr{font-size:13px;font-weight:300;color:rgba(255,255,255,.68);margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:286px}
+.tags span{padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.10);backdrop-filter:blur(10px);font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.side-actions{position:absolute;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px;z-index:7}
+.action{display:flex;flex-direction:column;align-items:center;gap:5px}
+.action button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.12);backdrop-filter:blur(12px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.action svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.action button.liked{background:rgba(255,255,255,.20);border-color:rgba(255,255,255,.28)}
+.action button.liked .heart-icon{fill:currentColor}
+.action span{font-family:var(--mono);font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.52)}
+.feed-progress{position:absolute;left:24px;right:24px;bottom:calc(34px + var(--safe-bottom));height:1px;display:flex;gap:5px;z-index:7}
+.feed-progress span{height:1px;flex:1;background:rgba(255,255,255,.24)}
+.feed-progress span.active{background:rgba(255,255,255,.82)}
+.swipe-note{position:absolute;left:50%;bottom:calc(58px + var(--safe-bottom));transform:translateX(-50%);font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.34);z-index:7}
+.detail{background:linear-gradient(180deg,#fcfcfb 0%,var(--bg) 100%)}
+.detail-shell{height:100%;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;scroll-behavior:smooth;scroll-snap-type:y mandatory;background:#f8f7f4}
+.detail-shell::-webkit-scrollbar{display:none}
+.detail-section{position:relative;height:100%;min-height:100%;padding:calc(76px + var(--safe-top)) 20px calc(34px + var(--safe-bottom));display:flex;flex:0 0 100%;flex-direction:column;justify-content:center;scroll-snap-align:start;scroll-snap-stop:always}
+.brief-section{padding:0;justify-content:flex-end;overflow:hidden;background:#f7f6f3}
+.brief-hero{position:absolute;inset:0;z-index:0;background:#f7f6f3}
+.brief-hero img{width:100%;height:100%;display:block;object-fit:cover;transform:scale(1.03);filter:saturate(1.02);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.brief-section.is-ready .brief-hero img{transform:scale(1)}
+.brief-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,0) 36%,rgba(0,0,0,.72) 100%)}
+.brief-section.no-hero .brief-hero{display:none}
+.brief-section.no-hero{padding:calc(76px + var(--safe-top)) 20px calc(34px + var(--safe-bottom));justify-content:center;background:radial-gradient(circle at 50% 18%,rgba(255,255,255,.98),rgba(255,255,255,0) 34%),linear-gradient(180deg,#fcfcfb 0%,#f5f3ef 100%)}
+.summary{position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;width:100%;padding:0 20px calc(44px + var(--safe-bottom));color:#fff}
+.brief-section.no-hero .summary{padding:0;color:inherit}
+.hero-line{opacity:0;filter:blur(10px);transform:translateY(18px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1),filter .9s cubic-bezier(.16,1,.3,1)}
+.brief-section.is-ready .hero-line{opacity:1;filter:blur(0);transform:translateY(0)}
+.detail-label{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#bcb4aa}
+.detail-title{font-size:42px;line-height:.96;font-weight:200;letter-spacing:-.06em;color:#6d665d}
+.detail-price{font-size:34px;line-height:.96;font-weight:200;letter-spacing:-.05em;color:#6d665d}
+.detail-address{font-size:14px;font-weight:300;line-height:1.35;color:#9b9389}
+.brief-copy{margin-top:18px;font-size:15px;line-height:1.5;font-weight:300;color:#7b736a}
+.scroll-cue{margin-top:30px;font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#b9b1a7}
+.brief-section:not(.no-hero) .detail-label,.brief-section:not(.no-hero) .detail-address,.brief-section:not(.no-hero) .brief-copy,.brief-section:not(.no-hero) .scroll-cue{color:rgba(255,255,255,.72)}
+.brief-section:not(.no-hero) .detail-title,.brief-section:not(.no-hero) .detail-price{color:#fff;text-shadow:0 1px 22px rgba(0,0,0,.18)}
+.brief-section:not(.no-hero) .fact{color:rgba(255,255,255,.74)}
+.brief-section:not(.no-hero) .fact svg{stroke:rgba(255,255,255,.7)}
+.facts{display:flex;gap:9px;overflow:auto;scrollbar-width:none}
+.facts::-webkit-scrollbar{display:none}
+.fact{display:flex;align-items:center;gap:6px;white-space:nowrap;font-family:var(--mono);font-size:8px;letter-spacing:.11em;text-transform:uppercase;color:#8e867c}
+.fact svg{width:13px;height:13px;stroke:#aea69c;fill:none;flex:0 0 auto}
+.map-section{padding:0;background:#f4f1eb;overflow:hidden}
+.map-stage{position:absolute;inset:0;background:#f4f1eb}
+.location-map{position:absolute;inset:0;background:#ece8df;pointer-events:none}
+.location-map .maplibregl-ctrl-bottom-left,.location-map .maplibregl-ctrl-bottom-right{display:none}
+.map-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(248,247,244,.72) 0%,rgba(248,247,244,0) 30%,rgba(248,247,244,0) 52%,rgba(248,247,244,.92) 100%);z-index:2;pointer-events:none}
+.map-pin{position:absolute;left:50%;top:46%;z-index:4;width:36px;height:36px;border-radius:999px;display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%) scale(.7);opacity:0;border:1px solid rgba(132,124,114,.18);background:rgba(255,255,255,.76);backdrop-filter:blur(16px);box-shadow:0 16px 40px rgba(94,86,75,.18);color:#746c63;pointer-events:none;transition:opacity .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1)}
+.map-section.pin-ready .map-pin{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.map-pin svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.map-copy{position:absolute;left:22px;right:22px;bottom:calc(34px + var(--safe-bottom));z-index:5;pointer-events:none}
+.map-title{margin-top:8px;font-size:31px;line-height:1.02;font-weight:200;letter-spacing:-.055em;color:#6d665d}
+.map-note{margin-top:10px;max-width:330px;font-size:13px;line-height:1.45;font-weight:300;color:#92897f}
+.map-progress{margin-top:18px;height:1px;background:rgba(163,155,144,.22)}
+.map-progress span{display:block;width:0;height:100%;background:rgba(115,109,101,.72);transition:width 1.8s cubic-bezier(.16,1,.3,1)}
+.map-section.is-ready .map-progress span{width:100%}
+.contact-section{padding:0;background:linear-gradient(180deg,#f8f7f4 0%,#eeeae4 100%);overflow:hidden}
+.contact-stage{position:absolute;inset:0;padding:calc(82px + var(--safe-top)) 22px calc(34px + var(--safe-bottom));display:flex;flex-direction:column;justify-content:space-between}
+.agent-portrait{position:relative;width:100%;height:54%;min-height:300px;max-height:460px;border-radius:28px;overflow:hidden;border:1px solid rgba(184,177,167,.18);background:#e9e4dc;box-shadow:0 24px 58px rgba(104,96,84,.16)}
+.agent-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.agent-portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 44%,rgba(20,18,16,.16) 100%)}
+.contact-copy{padding-top:22px;text-align:left}
+.contact-title{margin-top:8px;font-size:35px;line-height:.98;font-weight:200;letter-spacing:-.055em;color:#6d665d}
+.contact-note{margin-top:12px;font-size:13px;line-height:1.5;font-weight:300;color:#92897f}
+.agent-card{margin-top:24px;border-top:1px solid rgba(164,154,143,.2);padding-top:16px}
+.agent-name{font-size:18px;line-height:1.1;font-weight:300;color:#6d665d}
+.agent-role{margin-top:6px;font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#b0a89e}
+.agent-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.agent-links a{display:flex;align-items:center;justify-content:center;height:48px;border-radius:999px;border:1px solid rgba(169,160,149,.24);background:rgba(255,255,255,.72);box-shadow:0 10px 28px rgba(104,96,84,.08);font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#766d64;text-decoration:none}
+.tour-section{padding:0;background:#f7f6f3;color:#fff}
+.tour-sticky{position:relative;height:100%;overflow:hidden}
+.tour-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;background:#f7f6f3;transform:scale(1.055);transform-origin:center center}
+.tour-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 56%,rgba(0,0,0,.68));z-index:2}
+.tour-copy{position:absolute;left:24px;right:24px;bottom:calc(78px + var(--safe-bottom));z-index:4;min-height:112px}
+.tour-kicker{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:12px}
+.tour-title{font-size:30px;line-height:1.02;font-weight:200;letter-spacing:-.05em;color:#fff;transform:translateY(0);transition:opacity .36s ease,transform .36s ease}
+.tour-note{margin-top:10px;font-size:14px;line-height:1.42;font-weight:300;color:rgba(255,255,255,.72);transition:opacity .36s ease,transform .36s ease}
+.tour-progress{position:absolute;left:24px;right:24px;bottom:calc(34px + var(--safe-bottom));height:1px;background:rgba(255,255,255,.22);z-index:4}
+.tour-progress span{display:block;height:100%;width:0;background:rgba(255,255,255,.86)}
+.gallery-section{padding:0;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 24%,rgba(255,255,255,.96),rgba(255,255,255,0) 36%),linear-gradient(180deg,#faf9f6 0%,#eeeae4 100%)}
+.section-title{font-size:32px;line-height:1.02;font-weight:200;letter-spacing:-.05em;color:#6d665d}
+.section-subtitle{margin-top:10px;font-size:13px;line-height:1.45;font-weight:300;color:#988f85}
+.gallery-shell{position:relative;width:100%;height:100%;padding:calc(78px + var(--safe-top)) 20px calc(34px + var(--safe-bottom));display:flex;flex-direction:column;justify-content:space-between}
+.gallery-copy{position:relative;z-index:8;text-align:center}
+.gallery-copy .detail-label{color:#b7afa5}
+.gallery-copy .section-title{margin:8px auto 0;max-width:320px;font-size:29px}
+.gallery-copy .section-subtitle{max-width:300px;margin:10px auto 0}
+.gallery-count{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:#b9b1a7;margin-top:12px}
+.polaroid-stack{position:absolute;left:0;right:0;top:150px;bottom:54px;z-index:3}
+.polaroid-card{position:absolute;left:50%;top:50%;width:min(88%,372px);padding:11px 11px 44px;border-radius:6px;background:#fff;border:1px solid rgba(185,178,168,.20);box-shadow:0 22px 54px rgba(117,108,96,.18),0 4px 14px rgba(117,108,96,.08);opacity:0;transform:translate(-50%,-42%) translateY(74px) rotate(var(--rot)) scale(.94);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1),filter .8s cubic-bezier(.16,1,.3,1);filter:blur(8px);will-change:transform,opacity,filter}
+.polaroid-card.revealed{opacity:1;filter:blur(0);transform:translate(-50%,-50%) translate(var(--settle-x),var(--settle-y)) rotate(var(--rot)) scale(var(--scale))}
+.polaroid-card img{width:100%;aspect-ratio:4/5;display:block;object-fit:cover;border-radius:3px;background:#eee}
+.polaroid-card span{position:absolute;left:14px;right:14px;bottom:15px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#b7afa5;text-align:center}
+.gallery-empty{position:absolute;left:24px;right:24px;top:50%;transform:translateY(-50%);text-align:center}
+.model-section{padding:0;background:#fff;overflow:hidden}
+.spatial-stage{position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.98),rgba(246,244,240,.72) 48%,#f3f0ea 100%)}
+.model-wrap{position:absolute;inset:0;overflow:hidden;border:0;background:#fff}
+.model-frame{width:100%;height:100%;display:block;border:0;background:#fff}
+.model-fallback{position:absolute;left:22px;right:22px;bottom:104px;z-index:4;padding:10px 12px;border-radius:16px;border:1px solid rgba(184,177,167,.22);background:rgba(255,255,255,.82);backdrop-filter:blur(12px);font-size:11px;line-height:1.35;color:#8f877e;pointer-events:none}
+.model-fallback.hidden{display:none}
+.spatial-copy{position:absolute;left:22px;right:22px;bottom:calc(34px + var(--safe-bottom));z-index:3;pointer-events:none;text-align:left}
+.spatial-copy .detail-label{color:#b8b0a6}
+.spatial-title{margin-top:8px;font-size:31px;line-height:1.02;font-weight:200;letter-spacing:-.055em;color:#6d665d}
+.spatial-note{margin-top:10px;max-width:330px;font-size:13px;line-height:1.45;font-weight:300;color:#92897f}
+.spatial-progress{margin-top:18px;height:1px;background:rgba(163,155,144,.22)}
+.spatial-progress span{display:block;width:0;height:100%;background:rgba(115,109,101,.72);transition:width .2s ease}
+.facts-panel{margin-top:20px;border-radius:24px;border:1px solid rgba(197,190,180,.16);background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(246,244,240,.98));padding:16px}
+.model-section .facts-panel{display:none}
+.fact-row{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid rgba(184,177,167,.14);font-size:13px;line-height:1.35;color:#7e766d}
+.fact-row span:first-child{font-family:var(--mono);font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:#b0a89e}
+.fact-row span:last-child{text-align:right;color:#665f57}
+@media (min-height:930px){
+  .detail-section{padding-top:calc(84px + var(--safe-top))}
+  .detail-price{font-size:38px}
+}
+@media (max-width:700px),(pointer:coarse){
+  html,body{background:#0f0f10}
+  body{display:block}
+  .app{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;box-shadow:none}
+}
+@media (max-height:740px){
+  .overlay{top:calc(68px + var(--safe-top))}
+  .contact-stage{padding-top:calc(72px + var(--safe-top))}
+  .agent-portrait{height:44%;min-height:230px}
+  .contact-title{font-size:30px}
+  .agent-card{margin-top:18px}
+}
+</style>
+</head>
+<body>
+<main class="app" id="app">
+  <div class="topbar" id="topbar">
+    <div class="topbar-left">
+      <button class="topbtn" id="back-btn" type="button" aria-label="Back to feed">
+        <svg class="topicon" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"></path></svg>
+      </button>
+    </div>
+    <button class="wordmark" id="home-btn" type="button">Giraffe Peeks</button>
+    <div class="topbar-right">
+      <button class="topbtn" id="next-section-btn" type="button" aria-label="Next section">
+        <svg class="topicon" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <button class="topbtn" type="button" aria-label="Profile">
+        <svg class="topicon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"></circle><path d="M6.5 19a5.5 5.5 0 0 1 11 0"></path></svg>
+      </button>
+    </div>
+  </div>
+
+  <section class="screen active" id="feed-screen">
+    <div class="feed">
+      <div class="cards" id="cards"></div>
+      <div class="side-actions">
+        <div class="action">
+          <button id="like-btn" type="button" aria-label="Like property">
+            <svg class="heart-icon" viewBox="0 0 24 24"><path d="M12 19.2 5.9 13.1a3.9 3.9 0 0 1 5.5-5.5L12 8.2l.6-.6a3.9 3.9 0 0 1 5.5 5.5z"></path></svg>
+          </button>
+          <span id="like-label">Like</span>
+        </div>
+        <div class="action">
+          <button id="open-detail" type="button" aria-label="Open property">
+            <svg viewBox="0 0 24 24"><path d="M8 5h8a3 3 0 0 1 3 3v11H5V8a3 3 0 0 1 3-3Z"></path><path d="M5 13h14"></path><path d="M9 5V3.8a3 3 0 0 1 6 0V5"></path></svg>
+          </button>
+          <span>Open</span>
+        </div>
+      </div>
+      <div class="swipe-note">Swipe for more</div>
+      <div class="feed-progress" id="feed-progress"></div>
+    </div>
+  </section>
+
+  <section class="screen detail" id="detail-screen">
+    <div class="detail-shell" id="detail-shell">
+      <section class="detail-section brief-section" id="brief-section">
+        <div class="brief-hero"><img id="brief-hero-img" alt=""></div>
+        <div class="summary">
+          <div class="detail-label hero-line" style="--i:0">Property brief</div>
+          <div class="detail-title hero-line" style="--i:1" id="detail-title"></div>
+          <div class="detail-price hero-line" style="--i:2" id="detail-price"></div>
+          <div class="detail-address hero-line" style="--i:3" id="detail-address"></div>
+          <div class="facts hero-line" style="--i:4">
+            <div class="fact"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18v8H3z"></path><path d="M5 11V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4"></path></svg><span id="detail-beds"></span></div>
+            <div class="fact"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6.5h8a3 3 0 0 1 3 3V18H4v-8.5a3 3 0 0 1 3-3Z"></path><path d="M4 13h14"></path></svg><span id="detail-baths"></span></div>
+            <div class="fact"><svg viewBox="0 0 24 24" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8V5h3"></path><path d="M16 5h3v3"></path><path d="M19 16v3h-3"></path><path d="M8 19H5v-3"></path></svg><span id="detail-area"></span></div>
+          </div>
+          <p class="brief-copy hero-line" style="--i:5" id="brief-copy"></p>
+          <div class="scroll-cue hero-line" style="--i:6">Scroll for guided tour</div>
+        </div>
+      </section>
+      <section class="detail-section tour-section" id="tour-section">
+        <div class="tour-sticky">
+          <video class="tour-video" id="tour-video" muted playsinline preload="auto"></video>
+          <div class="tour-shade"></div>
+          <div class="tour-copy">
+            <div class="tour-kicker">Scroll tour</div>
+            <div class="tour-title" id="tour-title"></div>
+            <div class="tour-note" id="tour-note"></div>
+          </div>
+          <div class="tour-progress"><span id="tour-progress-fill"></span></div>
+        </div>
+      </section>
+
+      <section class="detail-section gallery-section" id="gallery-section">
+        <div class="gallery-shell">
+          <div class="gallery-copy">
+          <div class="detail-label">Gallery</div>
+          <h2 class="section-title">Details worth pausing on.</h2>
+          <p class="section-subtitle">Room-by-room frames from the walkthrough.</p>
+            <div class="gallery-count" id="gallery-count"></div>
+          </div>
+          <div class="polaroid-stack" id="gallery-stack"></div>
+        </div>
+      </section>
+
+      <section class="detail-section model-section" id="model-section">
+        <div class="spatial-stage">
+          <div class="model-wrap" id="model-wrap">
+            <iframe class="model-frame" id="model-frame" title="Interactive 3D floor plan"></iframe>
+            <div class="model-fallback">Loading the interactive spatial model.</div>
+          </div>
+          <div class="spatial-copy">
+            <div class="detail-label" id="spatial-label">Spatial model</div>
+            <h2 class="spatial-title" id="spatial-title">Rotate the layout.</h2>
+            <p class="spatial-note" id="spatial-note">Scroll to turn the home in 3D, then let the sun path reveal how light moves through the rooms.</p>
+            <div class="spatial-progress"><span id="spatial-progress-fill"></span></div>
+          </div>
+          <div class="facts-panel" id="facts-panel"></div>
+        </div>
+      </section>
+
+      <section class="detail-section map-section" id="map-section">
+        <div class="map-stage">
+          <div class="location-map" id="location-map"></div>
+          <div class="map-shade"></div>
+          <div class="map-pin">
+            <svg viewBox="0 0 24 24"><path d="M12 21s6-5.1 6-11a6 6 0 0 0-12 0c0 5.9 6 11 6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>
+          </div>
+          <div class="map-copy">
+            <div class="detail-label" id="map-label">Location</div>
+            <h2 class="map-title" id="map-title">Riverside context.</h2>
+            <p class="map-note" id="map-note">A quick look at where the home sits before the tour moves inside.</p>
+            <div class="map-progress"><span></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-section contact-section" id="contact-section">
+        <div class="contact-stage">
+          <div class="agent-portrait">
+            <img src="assets/agent-placeholder.png" alt="Agent portrait">
+          </div>
+          <div class="contact-copy">
+            <div class="detail-label">Agent</div>
+            <h2 class="contact-title">Interested in this home?</h2>
+            <p class="contact-note">Speak with the listing agent for availability, viewing times, and the details that are easier to confirm person to person.</p>
+            <div class="agent-card">
+              <div class="agent-name">Alex Morgan</div>
+              <div class="agent-role">Property Advisor</div>
+              <div class="agent-links">
+                <a href="tel:+37120000000">Call</a>
+                <a href="mailto:agent@giraffe360.com">Email</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<script>
+const app=document.getElementById('app');
+const feedScreen=document.getElementById('feed-screen');
+const detailScreen=document.getElementById('detail-screen');
+const topbar=document.getElementById('topbar');
+const backBtn=document.getElementById('back-btn');
+const homeBtn=document.getElementById('home-btn');
+const nextSectionBtn=document.getElementById('next-section-btn');
+const cards=document.getElementById('cards');
+const likeBtn=document.getElementById('like-btn');
+const likeLabel=document.getElementById('like-label');
+const openDetailBtn=document.getElementById('open-detail');
+const progress=document.getElementById('feed-progress');
+const detailShell=document.getElementById('detail-shell');
+const briefSection=document.getElementById('brief-section');
+const briefHeroImg=document.getElementById('brief-hero-img');
+const detailTitle=document.getElementById('detail-title');
+const detailPrice=document.getElementById('detail-price');
+const detailAddress=document.getElementById('detail-address');
+const detailBeds=document.getElementById('detail-beds');
+const detailBaths=document.getElementById('detail-baths');
+const detailArea=document.getElementById('detail-area');
+const briefCopy=document.getElementById('brief-copy');
+const mapSection=document.getElementById('map-section');
+const locationMapEl=document.getElementById('location-map');
+const mapTitle=document.getElementById('map-title');
+const mapNote=document.getElementById('map-note');
+const contactSection=document.getElementById('contact-section');
+const tourSection=document.getElementById('tour-section');
+const tourVideo=document.getElementById('tour-video');
+const tourTitle=document.getElementById('tour-title');
+const tourNote=document.getElementById('tour-note');
+const tourProgressFill=document.getElementById('tour-progress-fill');
+const gallerySection=document.getElementById('gallery-section');
+const galleryStack=document.getElementById('gallery-stack');
+const galleryCount=document.getElementById('gallery-count');
+const modelSection=document.getElementById('model-section');
+const modelFrame=document.getElementById('model-frame');
+const modelWrap=document.getElementById('model-wrap');
+const modelFallback=document.querySelector('.model-fallback');
+const factsPanel=document.getElementById('facts-panel');
+const spatialTitle=document.getElementById('spatial-title');
+const spatialNote=document.getElementById('spatial-note');
+const spatialProgressFill=document.getElementById('spatial-progress-fill');
+
+const localPreviewOrigin='http://127.0.0.1:4174';
+const viewerBase=location.protocol==='file:' ? `${localPreviewOrigin}/viewer/index.html` : 'viewer/index.html';
+const propertySeed=[
+  {
+    id:'delu-iela',
+    title:'Dēļu Iela',
+    price:'€380,000',
+    address:'Riga, Latvia',
+    video:'Deļu iela/Feed Video/Delu iela.mp4',
+    tourVideo:'Deļu iela/Drone Video/Drone.mp4',
+    modelFile:'Deļu iela/3dmodel.txt',
+    model:'https://my.giraffe360.com/3dflp/lvy850q',
+    tags:['2 bed','2 bath','River view'],
+    map:{center:[24.1036471,56.9354050],start:[24.078,56.944],zoomStart:12.2,zoomEnd:16.6,bearingStart:-18,bearingEnd:34,pitchStart:28,pitchEnd:64,title:'Riverside context.',note:'Deli iela sits close to the Daugava, with the city center just across the river.'},
+    brief:'A river-view Riga apartment with a practical two-bedroom layout, two bathrooms, and a balcony that gives the listing its strongest everyday moment.',
+    heroImage:'Deļu iela/Images/CAM06080G6-PR0019-STILL003.jpg',
+    gallery:[
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL001.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL003.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL006.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL011.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL014.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL019.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL022.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL025.jpg',
+      'Deļu iela/Images/CAM06080G6-PR0019-STILL027.jpg'
+    ],
+    tourMoments:[
+      {at:0,title:'Arrive from above.',note:'The tour starts with context: street, block, and the river-side setting.'},
+      {at:.24,title:'Read the building.',note:'Slow motion gives the facade and approach time to register.'},
+      {at:.48,title:'Find the river-facing side.',note:'This is where the balcony and view begin to matter.'},
+      {at:.72,title:'Understand the position.',note:'The drone path turns the location into something spatial, not just a line of copy.'},
+      {at:.92,title:'Ready for the layout.',note:'From here the 3D model can explain what the video cannot.'}
+    ],
+    facts:{Location:'Riga, Latvia',Type:'Apartment',Price:'380 000 Euro','Total area':'1049ft²',Balcony:'38ft²','Floor count':'1',Bedrooms:'2',Bathrooms:'2'}
+  },
+  {
+    id:'mission-rd',
+    title:'12345 Mission Rd',
+    price:'$750,000',
+    address:'San Antonio, 78210, United States',
+    video:'12345 Mission Rd/Full Video.mp4',
+    modelFile:'12345 Mission Rd/3dmodel.txt',
+    model:'https://my.giraffe360.com/3dflp/byu4g6n',
+    tags:['3 bed','4 bath','House'],
+    map:{center:[-98.4936,29.4241],start:[-98.54,29.45],zoomStart:11.8,zoomEnd:15.6,bearingStart:-20,bearingEnd:26,pitchStart:28,pitchEnd:58,title:'Neighborhood context.',note:'A quick spatial read of the surrounding streets before opening the property.'},
+    brief:'A larger San Antonio house with more bedroom and bathroom capacity. Drone/gallery story assets can be added to this folder next.',
+    heroImage:'',
+    gallery:[],
+    tourMoments:[
+      {at:0,title:'Property context.',note:'Add a drone video to this property folder to unlock the guided scroll tour.'}
+    ],
+    facts:{Location:'12345 Mission Rd San Antonio, 78210, United States',Type:'House',Price:'$750,000','Total area':'1991ft²',GLA:'1991ft²','Land plot size':'350ft²','Floor count':'1',Bedrooms:'3',Bathrooms:'4'}
+  }
+];
+
+const properties=[
+  {
+    id:'delu-iela',
+    title:'D\u0113\u013cu Iela',
+    price:'\u20ac380,000',
+    address:'Riga, Latvia',
+    video:'De\u013cu iela/Feed Video/Delu iela.mp4',
+    tourVideo:'De\u013cu iela/Drone Video/Drone.mp4',
+    modelFile:'De\u013cu iela/3dmodel.txt',
+    model:'https://my.giraffe360.com/3dflp/lvy850q',
+    tags:['2 bed','2 bath','River view'],
+    map:{center:[24.1036471,56.9354050],start:[24.078,56.944],zoomStart:12.2,zoomEnd:16.6,bearingStart:-18,bearingEnd:34,pitchStart:28,pitchEnd:64,title:'Riverside context.',note:'Deli iela sits close to the Daugava, with the city center just across the river.'},
+    brief:'A river-view Riga apartment with a practical two-bedroom layout, two bathrooms, and a balcony that gives the listing its strongest everyday moment.',
+    heroImage:'De\u013cu iela/Images/CAM06080G6-PR0019-STILL003.jpg',
+    gallery:[
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL001.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL003.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL006.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL011.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL014.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL019.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL022.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL025.jpg',
+      'De\u013cu iela/Images/CAM06080G6-PR0019-STILL027.jpg'
+    ],
+    tourMoments:[
+      {seconds:1,title:'Bedroom 1',note:'A simple, quiet room with soft morning light.'},
+      {seconds:11,title:'Living Room',note:'Open, bright, and calm, with light across the wooden floor.'},
+      {seconds:16,title:'Kitchen',note:'White walls, wood cabinets, and a quiet view through to the next room.'},
+      {seconds:23,title:'Bedroom 2',note:'Quiet, simple, and uncluttered.'}
+    ],
+    facts:{Location:'Riga, Latvia',Type:'Apartment',Price:'380 000 Euro','Total area':'1049ft2',Balcony:'38ft2','Floor count':'1',Bedrooms:'2',Bathrooms:'2'}
+  },
+  {
+    id:'mission-rd',
+    title:'12345 Mission Rd',
+    price:'$750,000',
+    address:'San Antonio, 78210, United States',
+    video:'12345 Mission Rd/Feed Video/Full Video.mp4',
+    tourVideo:'12345 Mission Rd/Drone video/Drone Video.mp4',
+    modelFile:'12345 Mission Rd/3dmodel.txt',
+    model:'https://my.giraffe360.com/3dflp/byu4g6n',
+    tags:['3 bed','4 bath','House'],
+    map:{center:[-98.4936,29.4241],start:[-98.54,29.45],zoomStart:11.8,zoomEnd:15.6,bearingStart:-20,bearingEnd:26,pitchStart:28,pitchEnd:58,title:'Neighborhood context.',note:'A quick spatial read of the surrounding streets before opening the property.'},
+    brief:'A single-level San Antonio house with larger room capacity, bright interiors, and an easy indoor-outdoor rhythm around the terrace.',
+    heroImage:'assets/cover-oceanside.png',
+    gallery:[
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL002.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL004.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL008.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL009.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL011.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL013.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL016.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL017.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL021.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL023.jpg',
+      '12345 Mission Rd/Images/CAM06075G6-PR0015-STILL024.jpg'
+    ],
+    tourMoments:[
+      {seconds:1,title:'Bedroom',note:'Soft light, white walls, and a quiet patterned corner.'},
+      {seconds:9,title:'Bedroom',note:'Light comes in from above, making the room feel open and quiet.'},
+      {seconds:17,title:'Living Room',note:'A quiet sitting area with a stone wall, open ceiling, and the terrace just outside.'},
+      {seconds:24,title:'Kitchen',note:'White cabinets, stainless steel, and a large work surface under the open ceiling.'}
+    ],
+    facts:{Location:'12345 Mission Rd San Antonio, 78210, United States',Type:'House',Price:'$750,000','Total area':'1991ft2',GLA:'1991ft2','Land plot size':'350ft2','Floor count':'1',Bedrooms:'3',Bathrooms:'4'}
+  },
+  {
+    id:'flagler-st',
+    title:'5811 W Flagler St',
+    price:'$950,000',
+    address:'Miami, Florida',
+    video:'5811 W Flagler St/Feed Video/Full Video.mp4',
+    tourVideo:'5811 W Flagler St/Drone Video/Drone Video.mp4',
+    modelFile:'5811 W Flagler St/3dmodel.txt',
+    model:'https://my.giraffe360.com/3dflp/tph74oy',
+    tags:['2 bed','2 bath','1,148 sq ft'],
+    map:{center:[-80.2909,25.7714],start:[-80.318,25.782],zoomStart:11.8,zoomEnd:15.8,bearingStart:-18,bearingEnd:24,pitchStart:28,pitchEnd:58,title:'Miami street context.',note:'Flagler sits west of central Miami, with quick access back toward the city core.'},
+    brief:'A compact Miami home with bright everyday rooms, a simple layout, and a softer residential setting just off Flagler Street.',
+    heroImage:'assets/cover-mission.jpg',
+    gallery:[
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL001.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL003.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL004.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL005.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL007.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL010.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL012.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL014.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL017.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL019.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL021.jpg',
+      '5811 W Flagler St/Images/CAM06080G6-PR0021-STILL023.jpg'
+    ],
+    tourMoments:[
+      {seconds:1,title:'Kitchen',note:'Simple, bright, and easy to gather around.'},
+      {seconds:6,title:'Living Room',note:'A simple sitting room with soft seating, white walls, and light coming through the shutters.'},
+      {seconds:12,title:'Living Room',note:'A quiet sitting area with a stone wall, open ceiling, and the terrace just outside.'},
+      {seconds:24,title:'Bedroom',note:'Two beds, soft bedding, and a quiet wooden backdrop.'}
+    ],
+    facts:{Location:'5811 W Flagler St, Miami',Type:'House',Price:'$950,000','Total area':'1148ft2',Bedrooms:'2',Bathrooms:'2'}
+  }
+];
+
+let currentScreen='feed';
+let currentCard=0;
+let startY=0;
+let deltaY=0;
+let detailTouchY=0;
+let tourScrubProgress=0;
+let spatialProgress=0;
+const spatialSunStart=.7;
+let spatialSunEnteredAt=0;
+let galleryStackIndex=0;
+let galleryLastStep=0;
+let locationMap=null;
+let locationMapReady=false;
+let activeMapPropertyId=null;
+let mapReplayTimer=null;
+const videoBlobUrls=new Map();
+const likedProperties=new Set(JSON.parse(localStorage.getItem('giraffePeeksLikes')||'[]'));
+
+function layout(){
+  document.documentElement.style.setProperty('--stage-scale','1');
+}
+
+async function modelUrlFor(property){
+  if(property._modelFromFile)return property._modelFromFile;
+  if(!property.modelFile)return property.model;
+  try{
+    const response=await fetch(property.modelFile,{cache:'no-store'});
+    if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    const text=(await response.text()).trim();
+    property._modelFromFile=text || property.model;
+  }catch(_){
+    property._modelFromFile=property.model;
+  }
+  return property._modelFromFile;
+}
+
+async function viewerUrl(property){
+  const model=await modelUrlFor(property);
+  return `${viewerBase}?peeks=1&property=${encodeURIComponent(property.id)}#${encodeURIComponent(model)}`;
+}
+
+function maplibreReady(){
+  return typeof maplibregl!=='undefined';
+}
+
+function addLocationLayers(){
+  if(!locationMap||locationMap.getLayer('peeks-buildings'))return;
+  try{
+    locationMap.addLayer({
+      id:'peeks-buildings',
+      source:'openmaptiles',
+      'source-layer':'building',
+      type:'fill-extrusion',
+      minzoom:14,
+      paint:{
+        'fill-extrusion-color':'#d9d3ca',
+        'fill-extrusion-height':['coalesce',['get','render_height'],['get','height'],12],
+        'fill-extrusion-base':['coalesce',['get','render_min_height'],['get','min_height'],0],
+        'fill-extrusion-opacity':.54
+      }
+    });
+  }catch(error){}
+}
+
+function ensureLocationMap(property){
+  if(!maplibreReady()||!property.map)return;
+  const cfg=property.map;
+  mapTitle.textContent=cfg.title||'Location context.';
+  mapNote.textContent=cfg.note||'A quick look at where the home sits before the tour moves inside.';
+  mapSection.classList.remove('is-ready','pin-ready');
+
+  if(!locationMap){
+    locationMap=new maplibregl.Map({
+      container:locationMapEl,
+      style:'https://tiles.openfreemap.org/styles/positron',
+      center:cfg.start||cfg.center,
+      zoom:cfg.zoomStart||12,
+      pitch:cfg.pitchStart||26,
+      bearing:cfg.bearingStart||0,
+      interactive:false,
+      attributionControl:false
+    });
+    locationMap.on('load',()=>{
+      locationMapReady=true;
+      addLocationLayers();
+      primeLocationMap(property);
+      if(isMapInView())playLocationMap(property);
+    });
+  }else{
+    primeLocationMap(property);
+    if(isMapInView())playLocationMap(property);
+  }
+}
+
+function primeLocationMap(property=properties[currentCard]){
+  if(!locationMap||!property?.map)return;
+  const cfg=property.map;
+  clearTimeout(mapReplayTimer);
+  mapSection.classList.remove('is-ready','pin-ready');
+  activeMapPropertyId=property.id;
+  locationMap.jumpTo({
+    center:cfg.start||cfg.center,
+    zoom:cfg.zoomStart||12,
+    pitch:cfg.pitchStart||26,
+    bearing:cfg.bearingStart||0
+  });
+  locationMap.resize();
+}
+
+function playLocationMap(property=properties[currentCard]){
+  if(!locationMap||!property?.map)return;
+  const cfg=property.map;
+  primeLocationMap(property);
+  requestAnimationFrame(()=>{
+    mapSection.classList.add('is-ready');
+    locationMap.easeTo({
+      center:cfg.center,
+      zoom:cfg.zoomEnd||16,
+      pitch:cfg.pitchEnd||60,
+      bearing:cfg.bearingEnd||28,
+      duration:2600,
+      easing:t=>1-Math.pow(1-t,3)
+    });
+    mapReplayTimer=setTimeout(()=>mapSection.classList.add('pin-ready'),2550);
+  });
+}
+
+async function scrubVideoUrl(src){
+  if(!src)return src;
+  if(videoBlobUrls.has(src))return videoBlobUrls.get(src);
+  try{
+    const response=await fetch(src,{cache:'force-cache'});
+    if(!response.ok)throw new Error('Video fetch failed');
+    const url=URL.createObjectURL(await response.blob());
+    videoBlobUrls.set(src,url);
+    return url;
+  }catch(error){
+    return src;
+  }
+}
+
+function updateHeaderTone(){
+  const onTour=currentScreen==='detail'&&isTourInView();
+  const onVideo=currentScreen==='feed'||onTour;
+  app.classList.toggle('video-header',onVideo);
+  app.classList.toggle('tour-header',onTour);
+}
+
+function showScreen(name){
+  currentScreen=name;
+  feedScreen.classList.toggle('active',name==='feed');
+  detailScreen.classList.toggle('active',name==='detail');
+  app.classList.toggle('detail',name==='detail');
+  topbar.classList.toggle('detail',name==='detail');
+  backBtn.style.display=name==='detail'?'flex':'none';
+  nextSectionBtn.style.display=name==='detail'?'flex':'none';
+  if(name==='feed')playVisible();
+  else{pauseFeed();requestAnimationFrame(()=>applyTourProgress(tourScrubProgress));}
+  requestAnimationFrame(updateHeaderTone);
+}
+
+function renderFeed(){
+  cards.innerHTML=properties.map((p,i)=>`
+    <article class="card">
+      <video src="${p.video}" poster="${p.heroImage || ''}" ${i===0?'autoplay':''} loop playsinline></video>
+      <div class="card-shade"></div>
+      <div class="overlay">
+        <div class="price">${p.price}</div>
+        <div class="addr">${p.title}</div>
+        <div class="tags">${p.tags.map(tag=>`<span>${tag}</span>`).join('')}</div>
+      </div>
+    </article>
+  `).join('');
+  progress.innerHTML=properties.map((_,i)=>`<span class="${i===currentCard?'active':''}"></span>`).join('');
+  cards.style.transform=`translateY(-${currentCard*100}%)`;
+  syncLikeUI();
+}
+
+async function renderDetail(){
+  const p=properties[currentCard];
+  detailShell.scrollTop=0;
+  tourScrubProgress=0;
+  spatialProgress=0;
+  resetBriefIntro();
+  detailTitle.textContent=p.title;
+  detailPrice.textContent=p.price;
+  detailAddress.textContent=`${p.title}, ${p.address}`;
+  detailBeds.textContent=`${p.facts.Bedrooms} bed`;
+  detailBaths.textContent=`${p.facts.Bathrooms} bath`;
+  detailArea.textContent=p.facts['Total area'];
+  briefCopy.textContent=p.brief || '';
+  ensureLocationMap(p);
+  const heroImage=p.heroImage || (p.gallery&&p.gallery.length?p.gallery[0]:'');
+  briefSection.classList.toggle('no-hero',!heroImage);
+  briefHeroImg.src=heroImage;
+  briefHeroImg.alt=heroImage?`${p.title} hero image`:'';
+  const tourSource=p.tourVideo || p.video;
+  const tourPropertyId=p.id;
+  tourVideo.onloadedmetadata=()=>{
+    if(properties[currentCard].id===tourPropertyId)applyTourProgress(tourScrubProgress);
+  };
+  tourVideo.src=tourSource;
+  tourVideo.load();
+  tourVideo.currentTime=0;
+  tourVideo.pause();
+  tourVideo.play().then(()=>{
+    tourVideo.pause();
+    applyTourProgress(tourScrubProgress);
+  }).catch(()=>{});
+  scrubVideoUrl(tourSource).then(url=>{
+    if(properties[currentCard].id!==tourPropertyId||tourVideo.src===url)return;
+    tourVideo.src=url;
+    tourVideo.load();
+    tourVideo.currentTime=0;
+    applyTourProgress(tourScrubProgress);
+  });
+  renderTourCaption(0);
+  tourProgressFill.style.width='0%';
+  renderGalleryStack(p.gallery&&p.gallery.length?p.gallery:[]);
+  factsPanel.innerHTML=Object.entries(p.facts).map(([label,value])=>`
+    <div class="fact-row"><span>${label}</span><span>${value}</span></div>
+  `).join('');
+  applySpatialProgress(0);
+  modelFallback.classList.remove('hidden');
+  modelFrame.src='about:blank';
+  modelFrame.src=await viewerUrl(p);
+}
+
+function activeTourMoment(progress){
+  const p=properties[currentCard];
+  const moments=p.tourMoments || [];
+  let active=moments[0] || {title:'Scroll tour',note:''};
+  for(const moment of moments){
+    const at=Number.isFinite(moment.at)
+      ? moment.at
+      : (tourVideo.duration&&Number.isFinite(tourVideo.duration) ? moment.seconds/tourVideo.duration : 0);
+    if(progress>=at)active=moment;
+  }
+  return active;
+}
+
+function renderTourCaption(progress){
+  const moment=activeTourMoment(progress);
+  if(tourTitle.textContent!==moment.title){
+    tourTitle.style.opacity='0';
+    tourNote.style.opacity='0';
+    tourTitle.style.transform='translateY(8px)';
+    tourNote.style.transform='translateY(8px)';
+    setTimeout(()=>{
+      tourTitle.textContent=moment.title;
+      tourNote.textContent=moment.note;
+      tourTitle.style.opacity='1';
+      tourNote.style.opacity='1';
+      tourTitle.style.transform='translateY(0)';
+      tourNote.style.transform='translateY(0)';
+    },120);
+  }
+}
+
+function resetBriefIntro(){
+  briefSection.classList.remove('is-ready');
+  briefHeroImg.style.transform='scale(1.03)';
+  [...briefSection.querySelectorAll('.hero-line')].forEach((line,index)=>{
+    line.style.transitionDelay=`${index*90}ms`;
+    line.style.opacity='0';
+    line.style.filter='blur(10px)';
+    line.style.transform='translateY(18px)';
+  });
+}
+
+function playBriefIntro(){
+  briefSection.classList.add('is-ready');
+  briefHeroImg.style.transform='scale(1)';
+  [...briefSection.querySelectorAll('.hero-line')].forEach(line=>{
+    line.style.opacity='1';
+    line.style.filter='blur(0)';
+    line.style.transform='translateY(0)';
+  });
+}
+
+function renderGalleryStack(images){
+  galleryStackIndex=images.length?0:-1;
+  if(!images.length){
+    galleryCount.textContent='';
+    galleryStack.innerHTML='<div class="gallery-empty"><p class="section-subtitle">Add images to this property folder to build the gallery.</p></div>';
+    return;
+  }
+  galleryStack.innerHTML=images.map((src,index)=>{
+    const rotations=[-5.5,4.2,-2.8,6.1,-4.4,2.6,-6.2,3.8,-1.8,5.4];
+    const xs=[-10,12,0,-16,15,-5,8,-13,5,0];
+    const ys=[12,-8,4,18,-14,8,-4,14,-10,2];
+    const scale=(1-(Math.max(0,images.length-index-1)*.004)).toFixed(3);
+    return `
+      <figure class="polaroid-card" style="--rot:${rotations[index%rotations.length]}deg;--settle-x:${xs[index%xs.length]}px;--settle-y:${ys[index%ys.length]}px;--scale:${scale};z-index:${index+1}" data-index="${index}">
+        <img src="${src}" alt="Gallery image ${index+1}" loading="lazy">
+        <span>${String(index+1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}</span>
+      </figure>
+    `;
+  }).join('');
+  setGalleryStack(0);
+}
+
+function setGalleryStack(index){
+  const cards=[...galleryStack.querySelectorAll('.polaroid-card')];
+  if(!cards.length){
+    galleryCount.textContent='';
+    return;
+  }
+  galleryStackIndex=Math.max(0,Math.min(cards.length-1,index));
+  cards.forEach((card,cardIndex)=>{
+    const revealed=cardIndex<=galleryStackIndex;
+    card.classList.toggle('revealed',revealed);
+    card.style.transitionDelay=revealed?`${Math.max(0,cardIndex-galleryStackIndex+1)*40}ms`:'0ms';
+  });
+  galleryCount.textContent=`Image ${galleryStackIndex+1} of ${cards.length}`;
+}
+
+function applyTourProgress(progress=tourScrubProgress){
+  tourScrubProgress=Math.max(0,Math.min(1,progress));
+  tourProgressFill.style.width=`${(tourScrubProgress*100).toFixed(2)}%`;
+  renderTourCaption(tourScrubProgress);
+  if(tourVideo.duration&&Number.isFinite(tourVideo.duration)){
+    const target=Math.min(tourVideo.duration-.05,Math.max(0,tourVideo.duration*tourScrubProgress));
+    if(Math.abs(tourVideo.currentTime-target)>.08)tourVideo.currentTime=target;
+  }
+}
+
+function postSpatialProgress(){
+  modelFrame.contentWindow?.postMessage({type:'peeks-spatial-progress',progress:spatialProgress},'*');
+}
+
+function renderSpatialCopy(){
+  const sunPhase=spatialProgress>=spatialSunStart;
+  spatialTitle.textContent=sunPhase?'Follow the sun path.':'Rotate the layout.';
+  spatialNote.textContent=sunPhase
+    ? 'The light now runs on its own. Keep scrolling when you are ready for location.'
+    : 'Scroll to turn the home in 3D, then let the sun path reveal how light moves through the rooms.';
+  spatialProgressFill.style.width=`${(spatialProgress*100).toFixed(2)}%`;
+}
+
+function applySpatialProgress(progress=spatialProgress){
+  const previous=spatialProgress;
+  spatialProgress=Math.max(0,Math.min(1,progress));
+  if(previous<spatialSunStart&&spatialProgress>=spatialSunStart)spatialSunEnteredAt=Date.now();
+  if(spatialProgress<spatialSunStart)spatialSunEnteredAt=0;
+  renderSpatialCopy();
+  postSpatialProgress();
+}
+
+window.addEventListener('message',event=>{
+  const data=event.data||{};
+  if(data.type==='peeks-spatial-progress-sync'){
+    spatialProgress=Math.max(0,Math.min(1,Number(data.progress)||0));
+    renderSpatialCopy();
+  }
+  if(data.type==='peeks-spatial-back'&&isModelInView()){
+    scrollToSection(gallerySection);
+  }
+  if(data.type==='peeks-spatial-next'&&isModelInView()){
+    scrollToSection(mapSection);
+  }
+});
+
+function isTourInView(){
+  return currentScreen==='detail'&&Math.abs(detailShell.scrollTop-tourSection.offsetTop)<detailShell.clientHeight*.45;
+}
+
+function isMapInView(){
+  return currentScreen==='detail'&&Math.abs(detailShell.scrollTop-mapSection.offsetTop)<detailShell.clientHeight*.45;
+}
+
+function isContactInView(){
+  return currentScreen==='detail'&&Math.abs(detailShell.scrollTop-contactSection.offsetTop)<detailShell.clientHeight*.45;
+}
+
+function isGalleryInView(){
+  return currentScreen==='detail'&&Math.abs(detailShell.scrollTop-gallerySection.offsetTop)<detailShell.clientHeight*.45;
+}
+
+function isModelInView(){
+  return currentScreen==='detail'&&Math.abs(detailShell.scrollTop-modelSection.offsetTop)<detailShell.clientHeight*.45;
+}
+
+function scrollToSection(section){
+  detailShell.scrollTo({top:section.offsetTop,behavior:'smooth'});
+  if(section===mapSection)setTimeout(()=>playLocationMap(),280);
+}
+
+function jumpToNextSection(){
+  if(currentScreen!=='detail')return;
+  const sections=[briefSection,tourSection,gallerySection,modelSection,mapSection,contactSection];
+  const current=sections.reduce((best,section,index)=>{
+    const distance=Math.abs(detailShell.scrollTop-section.offsetTop);
+    return distance<best.distance?{index,distance}:best;
+  },{index:0,distance:Infinity}).index;
+  const next=sections[Math.min(sections.length-1,current+1)];
+  if(next===modelSection)applySpatialProgress(0);
+  scrollToSection(next);
+}
+
+function handleTourDelta(delta,input='wheel'){
+  if(!isTourInView())return false;
+  const direction=Math.sign(delta);
+  if(direction>0&&tourScrubProgress>=.985){
+    const gallery=document.querySelector('.gallery-section');
+    if(gallery)scrollToSection(gallery);
+    return true;
+  }
+  if(direction<0&&tourScrubProgress<=.015){
+    scrollToSection(briefSection);
+    return true;
+  }
+  const limit=input==='touch'?26:28;
+  const speed=.00016;
+  const clamped=Math.max(-limit,Math.min(limit,delta));
+  applyTourProgress(tourScrubProgress+(clamped*speed));
+  return true;
+}
+
+function handleGalleryDelta(delta,input='wheel'){
+  if(!isGalleryInView())return false;
+  const cards=[...galleryStack.querySelectorAll('.polaroid-card')];
+  const direction=Math.sign(delta);
+  if(!cards.length){
+    if(direction>0){
+      const model=document.querySelector('.model-section');
+      if(model)scrollToSection(model);
+    }else{
+      scrollToSection(tourSection);
+    }
+    return true;
+  }
+  const now=Date.now();
+  const threshold=input==='touch'?34:18;
+  if(Math.abs(delta)<threshold)return true;
+  if(now-galleryLastStep<420)return true;
+  galleryLastStep=now;
+  if(direction>0){
+    if(galleryStackIndex<cards.length-1)setGalleryStack(galleryStackIndex+1);
+    else{
+      const model=document.querySelector('.model-section');
+      if(model)scrollToSection(model);
+    }
+  }else{
+    if(galleryStackIndex>0)setGalleryStack(galleryStackIndex-1);
+    else scrollToSection(tourSection);
+  }
+  return true;
+}
+
+function handleModelDelta(delta,input='wheel'){
+  if(!isModelInView())return false;
+  const direction=Math.sign(delta);
+  if(direction<0&&spatialProgress<=.015){
+    scrollToSection(gallerySection);
+    return true;
+  }
+  if(direction>0&&spatialProgress>=spatialSunStart){
+    if(!spatialSunEnteredAt||Date.now()-spatialSunEnteredAt>650)scrollToSection(mapSection);
+    return true;
+  }
+  const limit=input==='touch'?42:46;
+  const speed=.00042;
+  const clamped=Math.max(-limit,Math.min(limit,delta));
+  const next=spatialProgress+(clamped*speed);
+  applySpatialProgress(direction>0?Math.min(spatialSunStart,next):next);
+  return true;
+}
+
+function playVisible(){
+  [...cards.querySelectorAll('video')].forEach((video,i)=>{
+    if(i===currentCard){
+      video.muted=false;
+      video.volume=1;
+      video.play().catch(()=>{});
+    }else{
+      video.muted=true;
+      video.pause();
+      video.currentTime=0;
+    }
+  });
+}
+
+function pauseFeed(){
+  [...cards.querySelectorAll('video')].forEach(video=>{
+    video.pause();
+    video.muted=true;
+  });
+}
+
+function swipeTo(index){
+  const next=Math.max(0,Math.min(properties.length-1,index));
+  if(next===currentCard)return;
+  currentCard=next;
+  cards.style.transform=`translateY(-${currentCard*100}%)`;
+  [...progress.children].forEach((bar,i)=>bar.classList.toggle('active',i===currentCard));
+  syncLikeUI();
+  playVisible();
+}
+
+function syncLikeUI(){
+  const property=properties[currentCard];
+  const liked=likedProperties.has(property.id);
+  likeBtn.classList.toggle('liked',liked);
+  likeBtn.setAttribute('aria-label',liked?'Unlike property':'Like property');
+  likeLabel.textContent=liked?'Liked':'Like';
+}
+
+function toggleLike(){
+  const property=properties[currentCard];
+  if(likedProperties.has(property.id))likedProperties.delete(property.id);
+  else likedProperties.add(property.id);
+  localStorage.setItem('giraffePeeksLikes',JSON.stringify([...likedProperties]));
+  syncLikeUI();
+}
+
+async function openDetail(){
+  await renderDetail();
+  showScreen('detail');
+  requestAnimationFrame(()=>{
+    detailShell.scrollTo({top:0,behavior:'auto'});
+    updateHeaderTone();
+    requestAnimationFrame(playBriefIntro);
+  });
+}
+
+function snapDetailWheel(event){
+  if(currentScreen!=='detail')return;
+  if(isTourInView()){
+    event.preventDefault();
+    handleTourDelta(event.deltaY,'wheel');
+  }else if(isGalleryInView()){
+    event.preventDefault();
+    handleGalleryDelta(event.deltaY,'wheel');
+  }else if(isModelInView()){
+    event.preventDefault();
+    handleModelDelta(event.deltaY,'wheel');
+  }
+}
+
+function snapDetailTouchStart(event){
+  if(currentScreen!=='detail')return;
+  detailTouchY=event.touches[0].clientY;
+}
+
+function snapDetailTouchMove(event){
+  if(currentScreen!=='detail'||(!isTourInView()&&!isGalleryInView()&&!isModelInView()))return;
+  const nextY=event.touches[0].clientY;
+  const delta=detailTouchY-nextY;
+  if(Math.abs(delta)>1){
+    event.preventDefault();
+    if(isTourInView())handleTourDelta(delta,'touch');
+    else if(isGalleryInView())handleGalleryDelta(delta,'touch');
+    else handleModelDelta(delta,'touch');
+    detailTouchY=nextY;
+  }
+}
+
+cards.addEventListener('touchstart',event=>{startY=event.touches[0].clientY;deltaY=0;},{passive:true});
+cards.addEventListener('touchmove',event=>{deltaY=event.touches[0].clientY-startY;},{passive:true});
+cards.addEventListener('touchend',()=>{if(Math.abs(deltaY)>50)swipeTo(currentCard+(deltaY<0?1:-1));});
+cards.addEventListener('wheel',event=>{event.preventDefault();if(Math.abs(event.deltaY)>16)swipeTo(currentCard+(event.deltaY>0?1:-1));},{passive:false});
+cards.addEventListener('click',event=>{
+  if(currentScreen!=='feed'||Math.abs(deltaY)>12)return;
+  if(event.target.closest('a,button'))return;
+  const video=cards.querySelectorAll('video')[currentCard];
+  if(!video)return;
+  if(video.paused){
+    video.muted=false;
+    video.volume=1;
+    video.play().catch(()=>{});
+  }else{
+    video.pause();
+  }
+});
+likeBtn.addEventListener('click',toggleLike);
+openDetailBtn.addEventListener('click',openDetail);
+backBtn.addEventListener('click',()=>showScreen('feed'));
+homeBtn.addEventListener('click',()=>showScreen('feed'));
+nextSectionBtn.addEventListener('click',jumpToNextSection);
+modelFrame.addEventListener('load',()=>setTimeout(()=>{modelFallback.classList.add('hidden');postSpatialProgress();},900));
+detailShell.addEventListener('wheel',snapDetailWheel,{passive:false});
+detailShell.addEventListener('touchstart',snapDetailTouchStart,{passive:true});
+detailShell.addEventListener('touchmove',snapDetailTouchMove,{passive:false});
+detailShell.addEventListener('scroll',updateHeaderTone,{passive:true});
+tourVideo.addEventListener('loadedmetadata',()=>applyTourProgress(tourScrubProgress));
+tourVideo.addEventListener('loadeddata',()=>applyTourProgress(tourScrubProgress));
+tourVideo.addEventListener('canplay',()=>applyTourProgress(tourScrubProgress));
+window.addEventListener('resize',layout);
+if(window.visualViewport)window.visualViewport.addEventListener('resize',layout);
+
+layout();
+renderFeed();
+showScreen('feed');
+</script>
+</body>
+</html>
