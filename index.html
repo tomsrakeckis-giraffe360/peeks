@@ -544,6 +544,9 @@ let startY=0;
 let deltaY=0;
 let detailTouchY=0;
 let tourScrubProgress=0;
+let tourRenderedProgress=0;
+let tourSmoothRaf=null;
+let tourLastSeekAt=0;
 let spatialProgress=0;
 const spatialSunStart=.7;
 let spatialSunEnteredAt=0;
@@ -823,7 +826,7 @@ function updateFeedVideoSources(){
 async function renderDetail(){
   const p=properties[currentCard];
   detailShell.scrollTop=0;
-  tourScrubProgress=0;
+  applyTourProgress(0,true);
   spatialProgress=0;
   resetBriefIntro();
   detailTitle.textContent=p.title;
@@ -849,14 +852,14 @@ async function renderDetail(){
   tourVideo.pause();
   tourVideo.play().then(()=>{
     tourVideo.pause();
-    applyTourProgress(tourScrubProgress);
+    applyTourProgress(tourScrubProgress,true);
   }).catch(()=>{});
   scrubVideoUrl(tourSource).then(url=>{
     if(properties[currentCard].id!==tourPropertyId||tourVideo.src===url)return;
     tourVideo.src=url;
     tourVideo.load();
     tourVideo.currentTime=0;
-    applyTourProgress(tourScrubProgress);
+    applyTourProgress(tourScrubProgress,true);
   });
   renderTourCaption(0);
   tourProgressFill.style.width='0%';
@@ -959,14 +962,43 @@ function setGalleryStack(index){
   galleryCount.textContent=`Image ${galleryStackIndex+1} of ${cards.length}`;
 }
 
-function applyTourProgress(progress=tourScrubProgress){
-  tourScrubProgress=Math.max(0,Math.min(1,progress));
-  tourProgressFill.style.width=`${(tourScrubProgress*100).toFixed(2)}%`;
-  renderTourCaption(tourScrubProgress);
+function syncTourFrame(progress){
+  tourProgressFill.style.width=`${(progress*100).toFixed(2)}%`;
+  renderTourCaption(progress);
   if(tourVideo.duration&&Number.isFinite(tourVideo.duration)){
-    const target=Math.min(tourVideo.duration-.05,Math.max(0,tourVideo.duration*tourScrubProgress));
-    if(Math.abs(tourVideo.currentTime-target)>.08)tourVideo.currentTime=target;
+    const target=Math.min(tourVideo.duration-.05,Math.max(0,tourVideo.duration*progress));
+    const now=performance.now();
+    if(now-tourLastSeekAt>32&&Math.abs(tourVideo.currentTime-target)>1/45){
+      tourVideo.currentTime=target;
+      tourLastSeekAt=now;
+    }
   }
+}
+
+function smoothTourFrame(){
+  tourSmoothRaf=null;
+  const delta=tourScrubProgress-tourRenderedProgress;
+  if(Math.abs(delta)<.0012){
+    tourRenderedProgress=tourScrubProgress;
+    syncTourFrame(tourRenderedProgress);
+    return;
+  }
+  tourRenderedProgress+=delta*.22;
+  syncTourFrame(tourRenderedProgress);
+  tourSmoothRaf=requestAnimationFrame(smoothTourFrame);
+}
+
+function applyTourProgress(progress=tourScrubProgress,immediate=false){
+  tourScrubProgress=Math.max(0,Math.min(1,progress));
+  if(immediate){
+    if(tourSmoothRaf)cancelAnimationFrame(tourSmoothRaf);
+    tourSmoothRaf=null;
+    tourRenderedProgress=tourScrubProgress;
+    tourLastSeekAt=0;
+    syncTourFrame(tourRenderedProgress);
+    return;
+  }
+  if(!tourSmoothRaf)tourSmoothRaf=requestAnimationFrame(smoothTourFrame);
 }
 
 function postSpatialProgress(){
