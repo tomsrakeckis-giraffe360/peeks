@@ -558,6 +558,7 @@ let locationMapReady=false;
 let activeMapPropertyId=null;
 let mapReplayTimer=null;
 const videoBlobUrls=new Map();
+const imageLoadCache=new Set();
 const likedProperties=new Set(JSON.parse(localStorage.getItem('giraffePeeksLikes')||'[]'));
 
 function layout(){
@@ -711,12 +712,17 @@ function startupAssetList(){
 
 function loadImage(src){
   return new Promise(resolve=>{
-    if(!src)return resolve();
+    if(!src||imageLoadCache.has(src))return resolve(src);
     const image=new Image();
-    image.onload=()=>resolve(src);
+    image.onload=()=>{imageLoadCache.add(src);resolve(src);};
     image.onerror=()=>resolve(src);
     image.src=src;
   });
+}
+
+function preloadGalleryImages(images,index=0){
+  const preloadWindow=images.slice(Math.max(0,index-1),Math.min(images.length,index+4));
+  preloadWindow.forEach(src=>loadImage(src));
 }
 
 async function warmVideo(src){
@@ -864,6 +870,7 @@ async function renderDetail(){
   renderTourCaption(0);
   tourProgressFill.style.width='0%';
   renderGalleryStack(p.gallery&&p.gallery.length?p.gallery:[]);
+  preloadGalleryImages(p.gallery||[],0);
   factsPanel.innerHTML=Object.entries(p.facts).map(([label,value])=>`
     <div class="fact-row"><span>${label}</span><span>${value}</span></div>
   `).join('');
@@ -939,7 +946,7 @@ function renderGalleryStack(images){
     const scale=(1-(Math.max(0,images.length-index-1)*.004)).toFixed(3);
     return `
       <figure class="polaroid-card" style="--rot:${rotations[index%rotations.length]}deg;--settle-x:${xs[index%xs.length]}px;--settle-y:${ys[index%ys.length]}px;--scale:${scale};z-index:${index+1}" data-index="${index}">
-        <img src="${src}" alt="Gallery image ${index+1}" loading="lazy">
+        <img src="${src}" alt="Gallery image ${index+1}" loading="eager" decoding="async">
         <span>${String(index+1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}</span>
       </figure>
     `;
@@ -954,6 +961,8 @@ function setGalleryStack(index){
     return;
   }
   galleryStackIndex=Math.max(0,Math.min(cards.length-1,index));
+  const gallery=properties[currentCard]?.gallery||[];
+  preloadGalleryImages(gallery,galleryStackIndex);
   cards.forEach((card,cardIndex)=>{
     const revealed=cardIndex<=galleryStackIndex;
     card.classList.toggle('revealed',revealed);
